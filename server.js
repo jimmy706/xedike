@@ -39,3 +39,4 @@ app.listen(port, () => {
 
 // TODO: router
 app.use("/api/user", require("./routes/api/user.api"));
+app.use("/api/user/driver", require("./routes/api/driver"));
