@@ -4,11 +4,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const multer = require("multer");
 const passport = require("passport");
+const upload = require("../../config/upload");
 
 
 // TODO: require package
 const {User} = require("../../models/User");
-const {validateRegister} = require("../../validation/validateRegister");
+const {validateRegister} = require("../../validation/validateUser");
 const {authorizing} = require("../../middleware/auth");
 const {
     createUser,
@@ -24,17 +25,6 @@ const {
 // TODO: set up package
 const router = express.Router();
 const secretKey = process.env.SECRET_KEY;
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, './uploads')
-    },
-    filename: function(req, file, cb){
-        let type = '';
-        if(file.mimetype === "" || file.mimetype ==="application/octet-strem") type = '.jpg'
-        cb(null, new Date().toISOString + "-" + file.originalname + type)
-    }
-});
-const upload = multer({storage});
 
 // ------------------ ROUTER -----------------------
 

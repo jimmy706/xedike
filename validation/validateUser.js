@@ -63,7 +63,7 @@ module.exports.validateRegister = (req, res, next) =>{
 
     // send errors if not valite
     if(Object.keys(errors).length){
-        res.status(400).json(errors);
+        return res.status(400).json(errors);
     }
     next();
 }
