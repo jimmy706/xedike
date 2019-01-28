@@ -10,7 +10,7 @@ const UserSchema = mongoose.Schema({
     registerDate: {type: Date, default: new Date()},
     avatar: {type: String},
     isActive: {type: Boolean, default: false},
-    numberOfTrips: {type: Number}
+    numberOfTrips: {type: Number, default: 0}
 })
 
 const User = mongoose.model("User", UserSchema);

@@ -1,8 +1,6 @@
 // TODO: require package from npm
 const bcrypt = require("bcryptjs");
-const multer = require("multer");
 const jwt = require('jsonwebtoken');
-const passport = require("passport");
 
 
 // TODO: require model 

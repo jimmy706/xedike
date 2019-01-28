@@ -1,8 +1,5 @@
 // TODO: require package from npm
 const express = require('express');
-const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
-const multer = require("multer");
 const passport = require("passport");
 const upload = require("../../config/upload");
 
@@ -24,7 +21,6 @@ const {
 
 // TODO: set up package
 const router = express.Router();
-const secretKey = process.env.SECRET_KEY;
 
 // ------------------ ROUTER -----------------------
 

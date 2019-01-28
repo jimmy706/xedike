@@ -8,7 +8,7 @@ const TripSchema = {
     },
     locationFrom :{type: String, required: true},
     locationTo: {type: String, required: true},
-    startTime: {type: Date, required: true},
+    startTime: {type: Date, required: true, default: new Date().toString()},
     availableSeats: {type: Number, min: 1, required: true},
     fee: {type: Number, required: true},
     isFinished: {type: Boolean, required: true, default: false},

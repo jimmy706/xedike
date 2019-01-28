@@ -1,8 +1,3 @@
-// TODO: require package from npm
-const express = require("express");
-const passport = require("passport");
-
-
 
 // TODO: require package
 const {Driver} = require("../models/Driver");

@@ -6,9 +6,6 @@ const passport = require("passport");
 
 // TODO: require package
 const {authorizing} = require("../../middleware/auth");
-const {Driver} = require("../../models/Driver");
-const {User} = require("../../models/User");
-const {Car} = require("../../models/Car");
 const upload = require("../../config/upload");
 const {
     validateDriverProfile,
