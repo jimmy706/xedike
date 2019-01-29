@@ -11,8 +11,11 @@ const {
     createTrip,
     bookTrip,
     finishTrip,
-    cancelTrip
+    cancelTrip,
+    updateTrip,
+    deleteTrip
 } = require("../../controller/trip.controller");
+const {validateCreateTrip} = require("../../validation/validateTrip");
 
 // TODO: set up package
 const router = express.Router();
@@ -31,6 +34,7 @@ router.get("/getAllTrip", getTrips);
 router.post("/createTrip", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
+    validateCreateTrip,
     createTrip
 );
 
@@ -50,6 +54,25 @@ router.post("/cancelTrip/:tripId",
     passport.authenticate("jwt", {session: false}),
     authorizing("passenger"),
     cancelTrip
+);
+
+// route: api/trip/cancelTrip/:tripId
+// desc: update a trip
+// status: private
+router.patch("/updateTrip/:tripId", 
+    passport.authenticate("jwt", {session: false}),
+    authorizing("driver"),
+    validateCreateTrip,
+    updateTrip
+);
+
+// route: api/trip/deleteTrip/:tripId
+// desc: delete a trip
+// status: private
+router.delete("/deleteTrip/:tripId", 
+    passport.authenticate("jwt", {session: false}),
+    authorizing("driver"),
+    deleteTrip
 );
 
 // route: api/trip/createTrip

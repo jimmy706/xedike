@@ -92,3 +92,36 @@ module.exports.cancelTrip = (req, res) => {
         .then(trip => res.status(200).json(trip))
         .catch(err => res.status(400).json(err))
 }
+
+// TODO: update a trip
+module.exports.updateTrip = (req, res) => {
+    const tripId = req.params.tripId;
+    Trip.findById(tripId)
+        .then(trip => {
+            if(!trip) return res.status(400).json({error: "Can't find trip"});
+            const {locationFrom, 
+                locationTo, 
+                startTime, 
+                availableSeats, 
+                fee, 
+                isFinished} = req.body;
+                            
+            trip.locationFrom = locationFrom;
+            trip.locationTo = locationTo;
+            trip.availableSeats = availableSeats;
+            trip.fee = fee;
+            trip.isFinished = isFinished;
+            trip.startTime = startTime;
+
+            return trip.save()
+        })
+        .then(trip => res.status(200).json(trip))
+        .catch(err => res.status(400).json(err))
+}
+
+// TODO: delete a trip
+module.exports.deleteTrip = (req, res) => {
+    Trip.findByIdAndDelete(req.params.tripId)
+        .then(response => res.status(200).json({message: "Deleted trip"}))
+        .catch(err => err.status(400).json(err))
+}
