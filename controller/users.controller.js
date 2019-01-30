@@ -123,6 +123,11 @@ module.exports.uploadAvatar = (req, res) => {
     User.findById(req.user.id)
         .then(user => {
             if(!user) return res.status(400).json({error: "User doesn't exist"});
+
+            const regexPath = /(png|svg|jpg|jpeg)$/i;
+            if(!regexPath.test(req.file.path)){
+                return res.status.json({error: "Avatar must be image"});
+            }
             user.avatar = req.file.path;
             return user.save()
         })

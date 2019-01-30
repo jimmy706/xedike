@@ -76,7 +76,7 @@ module.exports.validateDriverCar = (req, res, next) => {
         errors.carImage = "Car's image required";
     }
     else if(!regexPath.test(carImage.path)){
-        errors.carImage = "Wrong path, bitch";
+        errors.carImage = "Must be image file";
     }
     
 

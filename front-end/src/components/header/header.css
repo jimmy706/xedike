@@ -1,0 +1,14 @@
+.navbar-xedike{
+    background: var(--deep-blue);
+    color: var(--white);
+    
+}
+
+.navbar-xedike .navbar-btn-group{
+    display: flex;
+}
+
+.navbar-xedike .navbar-btn-group a{
+    color: var(--white);
+    font-family: "Roboto";
+}
