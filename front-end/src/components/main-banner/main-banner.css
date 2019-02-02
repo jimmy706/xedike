@@ -4,3 +4,12 @@
     color: var(--white);
     min-height: 820px;
 }
+
+
+.main-banner h1{
+    color: var(--white);
+}
+
+.main-banner h4{
+    color: var(--white);
+}

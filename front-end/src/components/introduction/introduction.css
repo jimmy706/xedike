@@ -7,3 +7,7 @@
 .introduction p {
     color: var(--gray);
 }
+
+.introduction h2{
+    color: var(--white);
+}

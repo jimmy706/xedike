@@ -5,7 +5,6 @@ const upload = require("../../config/upload");
 
 
 // TODO: require package
-const {User} = require("../../models/User");
 const {validateRegister} = require("../../validation/validateUser");
 const {authorizing} = require("../../middleware/auth");
 const {
@@ -15,7 +14,8 @@ const {
     getUserList,
     deleteAccount,
     uploadAvatar,
-    updateAccount
+    updateAccount,
+    rateDriver
 } = require("../../controller/users.controller");
 
 
@@ -69,10 +69,22 @@ router.post("/uploadAvatar",
     uploadAvatar
 );
 
+// route: api/user/updateAccount
+// desc:  update account
+// status: private (passenger and driver)
 router.patch("/updateAccount", 
     passport.authenticate("jwt", {session: false}),
     updateAccount
 );
+
+// route: api/user/rateDriver/:driverId
+// desc:  rate driver
+// status: private (passenger)
+router.post("/rateDriver/:driverId", 
+    passport.authenticate("jwt", {session: false}),
+    authorizing("passenger"),
+    rateDriver
+)
 
 // route: api/user/:userId
 // desc: get user info

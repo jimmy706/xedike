@@ -1,36 +1,9 @@
-.search-trip-form{
-    display: flex;
+.search-trip-form .btn-xedike{
+    height: 50px;
+    width: 100%;
+    border-radius: 0;
 }
 
-.search-trip-form .search-form-item{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
-    height: 60px;
-    border-radius: unset;
-}
 
-.search-trip-form .form-group{
-    background: #fff;
-    padding-left: 10px;
-    color: var(--gray);
-}
 
-.search-trip-form .search-form-item .fa-map-marker.icon-location-from{
-    color: var(--green);
-}
 
-.search-trip-form .search-form-item .fa-map-marker.icon-location-to{
-    color: var(--red);
-}
-
-.search-trip-form .search-form-item .form-control{
-    border: 0;
-    height: 100%!important;
-}
-
-.search-trip-form .search-form-item .form-control:focus{
-    outline: none;
-    box-shadow: none;
-}

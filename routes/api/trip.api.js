@@ -5,7 +5,6 @@ const passport = require("passport");
 
 // TODO: require package
 const {authorizing} = require("../../middleware/auth");
-const {Trip} = require("../../models/Trip");
 const {
     getTrips,
     createTrip,

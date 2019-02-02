@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // TODO: require model 
 const {User} = require("../models/User");
+const {Driver} = require("../models/Driver");
 const secretKey = process.env.SECRET_KEY;
 
 
@@ -166,4 +167,19 @@ module.exports.updateAccount = (req, res) => {
         .catch(err => {
             return res.status(400).json(err);
         })
+}
+
+// TODO: rate driver
+module.exports.rateDriver = (req, res) => {
+    const driverId = req.params.driverId;
+    Driver.findById(driverId)
+        .then(driver => {
+            if(!driver) return res.status(400).json({error: "Driver not found"});
+
+            const {raiting} = req.body;
+            driver.passengerRates.push(raiting);
+            return driver.save()
+        })
+        .then(driver => res.status(200).json(driver))
+        .catch(err => res.status(400).json(err))
 }
