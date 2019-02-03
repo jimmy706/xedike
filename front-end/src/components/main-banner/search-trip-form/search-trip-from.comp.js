@@ -6,6 +6,13 @@ import ActionBox from './action-box/action-box.comp';
 
 
 export default class SearchTripForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this);

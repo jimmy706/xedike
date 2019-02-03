@@ -47,6 +47,7 @@ export default class ActionBox extends Component {
                 <Col span={4}>
                     <InputNumber min={1} max={10} defaultValue={1} size="large"
                         formatter={value => `${value} chỗ`} 
+                        name="numberOfSeats"
                     />
                 </Col>
             </Row>

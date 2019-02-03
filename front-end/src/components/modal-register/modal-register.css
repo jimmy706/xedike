@@ -28,6 +28,10 @@
     border-radius: 5px;
 }
 
+.modal-content .inline-wrapper label img{
+    height: 120px;
+}
+
 .modal-content .inline-wrapper label:hover{
     border-color: var(--light-blue);
 }
@@ -69,6 +73,15 @@
 
 .modal-content .form-control:focus{
     box-shadow: none;
+}
+
+#passenger:checked ~ .inline-wrapper #labelPassenger{
+    border-color: var(--light-blue);
+}
+
+
+#driver:checked ~ .inline-wrapper #labelDriver{
+    border-color: var(--light-blue);
 }
 
 

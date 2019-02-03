@@ -7,6 +7,7 @@ import Introduction from "../components/introduction/introduction.comp";
 import Introduction2 from "../components/introduction-2/introduction-2.comp";
 import Introduction3 from "../components/introduction-3/introduction-3.comp";
 import ModalRegister from '../components/modal-register/modal-register.comp';
+import ModalLogin from "../components/modal-login//modal-login.comp";
 
 export default class home extends Component {
 
@@ -28,6 +29,7 @@ export default class home extends Component {
           <Introduction3/>
           <FooterComp/>     
           <ModalRegister/>     
+          <ModalLogin/>
       </div>
     )
   }
