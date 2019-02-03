@@ -17,8 +17,11 @@ const {
     getDriverProfile,
     addDriverCar,
     updateDriverCar,
-    deleteDriverCar
+    deleteDriverCar,
+    getDriverTrip
 } = require("../../controller/drivers.controller");
+const {Driver} = require("../../models/User");
+const {Trip} = require("../../models/Trip");
 
 
 // TODO: set up package
@@ -74,6 +77,15 @@ router.post("/deleteCar/:carId",
     authorizing("driver"),
     deleteDriverCar
 );
+
+// route: api/user/driver/getDriverTrip
+// desc: get driver's trips created
+// status: private
+router.get("/getDriverTrip",
+    passport.authenticate("jwt", {session: false}),
+    authorizing("driver"),
+    getDriverTrip
+)
 
 // route: api/user/driver/:driverId
 // desc: get driver info

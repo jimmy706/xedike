@@ -7,6 +7,8 @@ const upload = require("../../config/upload");
 // TODO: require package
 const {validateRegister} = require("../../validation/validateUser");
 const {authorizing} = require("../../middleware/auth");
+const {User} = require("../../models/User");
+const {Trip} = require("../../models/Trip");
 const {
     createUser,
     login,
@@ -15,7 +17,8 @@ const {
     deleteAccount,
     uploadAvatar,
     updateAccount,
-    rateDriver
+    rateDriver,
+    getUserHistoryTrip
 } = require("../../controller/users.controller");
 
 
@@ -84,6 +87,15 @@ router.post("/rateDriver/:driverId",
     passport.authenticate("jwt", {session: false}),
     authorizing("passenger"),
     rateDriver
+)
+
+// route: api/user/getUserTrip
+// desc:  get user's history trip
+// status: private (passenger)
+router.get("/getUserTrip", 
+    passport.authenticate("jwt", {session: false}),
+    authorizing("passenger"),
+    getUserHistoryTrip
 )
 
 // route: api/user/:userId

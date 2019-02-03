@@ -2,6 +2,7 @@
 // TODO: require package
 const {Driver} = require("../models/Driver");
 const {Car} = require("../models/Car");
+const {Trip} = require("../models/Trip");
 const upload = require("../config/upload");
 
 // TODO: create driver's profile
@@ -108,4 +109,14 @@ module.exports.deleteDriverCar = (req, res) => {
         })
         .then(driver => res.status(200).json(driver.carInfo))   
         .catch(err => res.status(400).json(err))         
+}
+
+// TODO: get driver's trips created
+module.exports.getDriverTrip = (req, res) => {
+    const driverId = req.user.id;
+    Trip.find({driverId})
+        .then(trips => {
+            return res.status(200).json(trips)
+        })
+        .catch(err => res.status(400).json(err))
 }

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 // TODO: require model 
 const {User} = require("../models/User");
 const {Driver} = require("../models/Driver");
+const {Trip} = require("../models/Trip");
 const secretKey = process.env.SECRET_KEY;
 
 
@@ -181,5 +182,22 @@ module.exports.rateDriver = (req, res) => {
             return driver.save()
         })
         .then(driver => res.status(200).json(driver))
+        .catch(err => res.status(400).json(err))
+}
+
+// TODO:  get user's history trip
+module.exports.getUserHistoryTrip = (req, res) => {
+    const userId = req.user.id;        
+    Trip.find()
+        .then(trips => {
+            let userTripHistory = [];
+            trips.map(trip => {
+                trip.passengers.map(passenger => {
+                    if(passenger.passengerId === userId)
+                        userTripHistory.push(trip);
+                })
+            })
+            return res.status(200).json(userTripHistory);
+        })
         .catch(err => res.status(400).json(err))
 }
