@@ -49,7 +49,9 @@ export default class TripItem extends Component {
 
         <div className="wrapper">
           <div className="driver">
-            <img src={driver.avatar ? driver.avatar : "./img/user-ic.png"} alt="avatar" className="avatar mr-1 rounded-circle" />
+            <img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"} 
+              alt="avatar" 
+              className="avatar mr-1 rounded-circle" />
             <div>
               <span className="driver-name">{driver.fullName}</span>
               <p className="rates m-0"><i className="fa fa-star"></i><span>4.5</span></p>

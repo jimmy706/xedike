@@ -3,7 +3,7 @@
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-.trip-list .fa-list-alt{
+.trip-list .fa-list-alt, .trip-list .fa-filter{
     color: var(--light-blue);
     margin-right: 10px;
     font-size: 1.8rem;

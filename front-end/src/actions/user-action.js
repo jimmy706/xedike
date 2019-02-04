@@ -22,3 +22,18 @@ export const actGetUserList = () => {
         })
     }
 }
+
+export const actRegisterUser = (newUser) => {
+    return (dispatch) => {
+        axios.post("http://localhost:5500/api/user/register", newUser)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                dispatch({
+                    type: Types.GET_ERRORS,
+                    payload: err.response.data
+                })
+            })
+    }
+}

@@ -17,7 +17,8 @@ class TripsListComp extends Component {
           const driver = userList.find(user => {
             return user._id === trip.driverId;
           })
-          return <TripItem driver = {driver} trip= {trip} key = {index}/>
+          if(!trip.isFinished)  
+            return <TripItem driver = {driver} trip= {trip} key = {index}/>
         })
       }
     }
