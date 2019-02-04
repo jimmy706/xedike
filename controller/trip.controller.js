@@ -5,7 +5,7 @@ const {User} = require("../models/User");
 // TODO: get a trip
 module.exports.getTrips = (req, res) => {
     Trip.find()
-        .then(trips => res.status(400).json(trips))
+        .then(trips => res.status(200).json(trips))
         .catch(err => res.status(400).json(err))
 }
 

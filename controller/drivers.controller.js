@@ -38,7 +38,7 @@ module.exports.getDriverProfile = (req, res) => {
     Driver.findOne({userId: driverId})
         .then(driver => {
             if(!driver) return res.status(400).json({error: "Can't find this driver"});
-            return res.status(400).json(driver);
+            return res.status(200).json(driver);
         })
         .catch(err => res.status(400).json(err))
 }

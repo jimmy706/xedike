@@ -8,7 +8,12 @@
     display: flex;
 }
 
-.navbar-xedike .navbar-btn-group a{
+.navbar-xedike .navbar-btn-group .nav-link{
     color: var(--white);
-    font-family: "Roboto";
+    transition: all .3s;
+    font-size: 1rem;
+}
+
+.navbar-xedike .navbar-btn-group .nav-link:hover{
+    color: var(--light-blue);
 }

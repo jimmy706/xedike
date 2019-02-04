@@ -1,0 +1,5 @@
+.trip-list-main .trip-list, .trip-list-main .sidebar-filter{
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 20px 20px;
+}

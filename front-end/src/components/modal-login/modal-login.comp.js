@@ -15,16 +15,16 @@ export default class ModalLogin extends Component {
                         <br/>
                         <form className="modal__form-register">
                             <div className="form-group">
-                                <label htmlFor="email">
+                                <label htmlFor="emailLogin">
                                     Email:
                                 </label>
-                                <input id="email" name="email" className="form-control" placeholder="Nhập địa chỉ email của bạn" />
+                                <input id="emailLogin" name="email" className="form-control" placeholder="Nhập địa chỉ email của bạn" />
                             </div>
                                 <div className="form-group pr-1">
-                                    <label htmlFor="password">
+                                    <label htmlFor="passwordLogin">
                                         Mật khẩu:
                                     </label>
-                                    <input id="password" name="password" className="form-control" type="password" placeholder="Nhập mật khẩu" />
+                                    <input id="passwordLogin" name="password" className="form-control" type="password" placeholder="Nhập mật khẩu" />
                                 </div>
 
                                 <p className="text-center">Bạn đã chưa có tài khoản? 
