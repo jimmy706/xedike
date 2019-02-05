@@ -5,7 +5,7 @@ const upload = require("../../config/upload");
 
 
 // TODO: require package
-const {validateRegister} = require("../../validation/validateUser");
+const {validateRegister, validateLogin} = require("../../validation/validateUser");
 const {authorizing} = require("../../middleware/auth");
 const {User} = require("../../models/User");
 const {Trip} = require("../../models/Trip");
@@ -36,7 +36,7 @@ router.post('/register', validateRegister, createUser);
 // route: api/user/register
 // desc: register api
 // status: public
-router.post("/login", login);
+router.post("/login", validateLogin, login);
 
 // route: api/user/getUsersList
 // desc: get user list

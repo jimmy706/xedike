@@ -68,3 +68,30 @@ module.exports.validateRegister = (req, res, next) =>{
     next();
 }
 
+
+module.exports.validateLogin = (req, res, next) => {
+    let errors = {};
+    const {email, password} = req.body;
+    // check email
+    if(validator.isEmpty(email)){
+        errors.email = "Email required";
+    }
+    else if(!validator.isEmail(email)){
+        errors.email = "Wrong email";
+    }
+
+    // check password
+    if(validator.isEmpty(password)){
+        errors.password = "Pasword required";        
+    }
+    else if(!validator.isLength(password, {min: 6, max: 30})){
+        errors.password = "Password must be 6 - 30 characters";
+    }
+
+    
+    // send errors if not valite
+    if(Object.keys(errors).length){
+        return res.status(400).json(errors);
+    }
+    next();
+}

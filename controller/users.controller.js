@@ -54,11 +54,11 @@ module.exports.login = (req, res) => {
 
     User.findOne({email})
         .then(user => {
-            if(!user) return res.status(400).json({message: 'Error, email not match'});
+            if(!user) return res.status(400).json({email: 'Error, email not match'});
 
             bcrypt.compare(password, user.password) // so sánh password nhập vs password dc hash
                 .then(isMatch => {
-                    if(!isMatch) return res.status(400).json({message: 'Wrong password'});
+                    if(!isMatch) return res.status(400).json({password: 'Wrong password'});
 
                     
                     const payload = {

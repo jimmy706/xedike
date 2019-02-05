@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import "./App.css";
+import jwtDecode from 'jwt-decode';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import store from "./store";
+
 import HomePage from "./containers/home";
 import ProfilePage from "./containers/profile";
 import TripListPage from "./containers/trip-list";
+import setAuthToken from "./utils/set-auth";
 
+import {setCurrentUser, actLogout} from "./actions/user-action";
 class App extends Component {
+  componentDidMount(){
+    if(localStorage.jwtToken){
+      // check login global
+      setAuthToken(localStorage.jwtToken);
+      const decode = jwtDecode(localStorage.jwtToken);
+      store.dispatch(setCurrentUser(decode));
+      if(decode.exp > new Date()){
+        store.dispatch(actLogout);        
+      }
+    }
+  }
+
+
   render() {
     return (
       <BrowserRouter>
