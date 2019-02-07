@@ -7,7 +7,7 @@ const Option = Select.Option;
 
 export default function SidebarFilter() {
     return (
-        <div className="sidebar-filter">
+        <div className="sidebar-filter box-wrapper">
             <h5 className="mb-3"><Icon type="filter" theme="twoTone" twoToneColor="#26ABED"/> Bộ lọc: </h5>
             <Select
                 className="rounded-left"

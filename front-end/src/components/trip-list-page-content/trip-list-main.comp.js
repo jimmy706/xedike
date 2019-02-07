@@ -5,7 +5,7 @@ import "./trip-list-main.css";
 
 export default function TripListPageMain(props) {
   return (
-    <section>
+    <section className="main">
       <div className="container">
         <div className="row py-5 trip-list-main">
             <div className="col-sm-9 col-12">

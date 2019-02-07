@@ -6,7 +6,7 @@ import EmptyTripList from "./empty-list/empty-trip-list.comp";
 
 class TripsListComp extends Component {
     
-    renderTripList = () => {
+    renderTripList (){
       const {userList, tripList} = this.props;
 
       if(!tripList.length){
@@ -25,7 +25,7 @@ class TripsListComp extends Component {
 
   render() {
     return (
-      <div className="trip-list">
+      <div className="trip-list box-wrapper">
         <div className="trip-list-header">
           <h5><i className="fa fa-list-alt" ></i> Danh sách chuyến đi: </h5>
         </div>

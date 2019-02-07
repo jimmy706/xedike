@@ -7,6 +7,7 @@ import store from "./store";
 import HomePage from "./containers/home";
 import ProfilePage from "./containers/profile";
 import TripListPage from "./containers/trip-list";
+import ProfileDriverPage from "./containers/profile-driver";
 import setAuthToken from "./utils/set-auth";
 
 import {setCurrentUser, actLogout} from "./actions/user-action";
@@ -29,8 +30,10 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" component={HomePage} exact></Route>
-          <Route path="/profile" component={ProfilePage} ></Route>
+          <Route path="/profile/driver/:driverId" component={ProfileDriverPage}></Route>
+          <Route path="/profile" component={ProfilePage} ></Route>          
           <Route path="/trips" component={TripListPage} ></Route>
+          
         </Switch>
       </BrowserRouter>
     );

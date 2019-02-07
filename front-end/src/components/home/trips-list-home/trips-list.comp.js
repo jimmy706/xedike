@@ -5,15 +5,15 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 class TripList extends Component {
-  renderTripList = () => {
+  renderTripList () {
     const {userList, tripList} = this.props;
-    return tripList.map((trip, index) => {
-      const driver = userList.find(user => {
-        return user._id === trip.driverId;
+      return tripList.map((trip, index) => {
+        const driver = userList.find(user => {
+          return user._id === trip.driverId;
+        })
+        if(index < 5 && !trip.isFinished && trip)
+          return <TripListItem driver = {driver} trip= {trip} key = {index}/>
       })
-      if(index < 5)
-        return <TripListItem driver = {driver} trip= {trip} key = {index}/>
-    })
   }
 
   render() {

@@ -7,23 +7,48 @@ export default class TripItem extends Component {
   constructor(props){
     super(props);
     this.state = {
-
+      address: '',      
+      carInfo: '',
+      passengerRates: '',
+      userId: '',
+      passportId: '',
+      job: '',      
     }
   }
   componentDidMount(){
     axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
       .then(res => {
-        console.log(res.data);
+        const {address, carInfo, passengerRates, userId, passportId, job} = res.data;
         this.setState({
-
+          address,
+          carInfo,
+          passengerRates,
+          userId,
+          passportId,
+          job
         })
       })
       .catch(err => console.log(err))
   }
 
+  calcRate = () => {
+    const {passengerRates} = this.state;
+    if(passengerRates.length){
+      let sum = 0;
+      for(let num of passengerRates){
+        sum += num;
+      }
+
+      return (sum / passengerRates.length).toFixed(1);
+    }
+    else
+      return 0.0;
+  }
+
   render() {
-    const {trip, driver} = this.props;
-    console.log(driver);
+    const {trip, driver} = this.props;    
+
+   
     return (
       <li className="trip-list-item">
 
@@ -43,18 +68,24 @@ export default class TripItem extends Component {
           <div className="car-name">Lamorghini 2019</div>
           <div className="number-of-seats">
             <i className="fa fa-users"></i>
-            <span>{trip.availableSeats}</span>
+            {driver ? (<span>{trip.availableSeats}</span>) : (<span>Loadding...</span>)}
           </div>
         </div>
 
         <div className="wrapper">
           <div className="driver">
-            <img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"} 
-              alt="avatar" 
-              className="avatar mr-1 rounded-circle" />
+              { driver ? 
+                (<img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"} 
+                 alt="avatar" 
+                 className="avatar mr-1 rounded-circle" />)
+                :
+                (<span>Loading...</span>)                
+              }                
             <div>
-              <span className="driver-name">{driver.fullName}</span>
-              <p className="rates m-0"><i className="fa fa-star"></i><span>4.5</span></p>
+              {driver ? (<span className="driver-name">{driver.fullName}</span>) : (<span>Loading...</span>)}
+              <p className="rates m-0"><i className="fa fa-star"></i>
+                {driver ? (<span>{this.calcRate()}</span>) : (<span>Loading...</span>)}
+              </p>
             </div>
 
           </div>

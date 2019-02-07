@@ -71,9 +71,12 @@ export const actLogin = (userData) => {
     }
 }
 
-export const actLogout = (dispatch) => {
+export const actLogout = () => {
     localStorage.removeItem("jwtToken");
     setAuthToken(undefined);
-    dispatch(setAuthToken({}));
+    return (dispatch) => {
+        dispatch(setCurrentUser({}))
+    } 
 }
+
 
