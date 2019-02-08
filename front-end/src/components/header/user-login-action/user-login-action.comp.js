@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown } from 'antd';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 import "./user-login-action.css";
-import {actLogout} from "../../../actions/user-action";
-import {connect} from "react-redux";
+import { actLogout } from "../../../actions/user-action";
+import { connect } from "react-redux";
 
 class UserLoginAction extends Component {
 
 
     render() {
+        const { avatar } = this.props.user;
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -28,7 +29,7 @@ class UserLoginAction extends Component {
         return (
             <div className="mr-5">
                 <Dropdown overlay={menu} placement="bottomCenter">
-                    <img src="./img/user-ic.png" alt="user avatar" className="user-avatar img-fluid"/>
+                    <img src={avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"} alt="user avatar" className="user-avatar img-fluid" />
                 </Dropdown>
             </div>
         )
@@ -41,4 +42,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {actLogout})(UserLoginAction)
+export default connect(mapStateToProps, { actLogout })(UserLoginAction)

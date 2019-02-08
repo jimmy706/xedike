@@ -1,41 +1,43 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default class TripItem extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      address: '',      
+      address: '',
       carInfo: '',
       passengerRates: '',
       userId: '',
       passportId: '',
-      job: '',      
+      job: '',
     }
   }
-  componentDidMount(){
-    axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
-      .then(res => {
-        const {address, carInfo, passengerRates, userId, passportId, job} = res.data;
-        this.setState({
-          address,
-          carInfo,
-          passengerRates,
-          userId,
-          passportId,
-          job
+  componentDidMount() {
+    if (this.props.driver) {
+      axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
+        .then(res => {
+          const { address, carInfo, passengerRates, userId, passportId, job } = res.data;
+          this.setState({
+            address,
+            carInfo,
+            passengerRates,
+            userId,
+            passportId,
+            job
+          })
         })
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
+    }
   }
 
   calcRate = () => {
-    const {passengerRates} = this.state;
-    if(passengerRates.length){
+    const { passengerRates } = this.state;
+    if (passengerRates.length) {
       let sum = 0;
-      for(let num of passengerRates){
+      for (let num of passengerRates) {
         sum += num;
       }
 
@@ -46,9 +48,9 @@ export default class TripItem extends Component {
   }
 
   render() {
-    const {trip, driver} = this.props;    
+    const { trip, driver } = this.props;
 
-   
+
     return (
       <li className="trip-list-item">
 
@@ -74,13 +76,13 @@ export default class TripItem extends Component {
 
         <div className="wrapper">
           <div className="driver">
-              { driver ? 
-                (<img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"} 
-                 alt="avatar" 
-                 className="avatar mr-1 rounded-circle" />)
-                :
-                (<span>Loading...</span>)                
-              }                
+            {driver ?
+              (<img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"}
+                alt="avatar"
+                className="avatar mr-1 rounded-circle" />)
+              :
+              (<span>Loading...</span>)
+            }
             <div>
               {driver ? (<span className="driver-name">{driver.fullName}</span>) : (<span>Loading...</span>)}
               <p className="rates m-0"><i className="fa fa-star"></i>

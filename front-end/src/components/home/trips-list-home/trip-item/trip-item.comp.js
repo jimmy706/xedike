@@ -74,12 +74,19 @@ export default class TripListItem extends Component {
 
                 <div className="wrapper">
                     <div className="driver">
-                        <img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"}
-                            alt="avatar"
-                            className="avatar mr-1 rounded-circle" />
+                        {driver ?
+                            (<img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"}
+                                alt="avatar"
+                                className="avatar mr-1 rounded-circle" />)
+                            :
+                            (<span>Loading...</span>)
+                        }
+
                         <div>
-                            <span className="driver-name">{driver.fullName}</span>
-                            <p className="rates m-0"><i className="fa fa-star"></i><span>{this.calcRate()}</span></p>
+                            {driver ? (<span className="driver-name">{driver.fullName}</span>) : (<span>Loading...</span>)}
+                            <p className="rates m-0"><i className="fa fa-star"></i>
+                                {driver ? (<span>{this.calcRate()}</span>) : (<span>Loading...</span>)}
+                            </p>
                         </div>
 
                     </div>
