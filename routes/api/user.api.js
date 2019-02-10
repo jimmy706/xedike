@@ -18,7 +18,8 @@ const {
     uploadAvatar,
     updateAccount,
     rateDriver,
-    getUserHistoryTrip
+    getUserHistoryTrip,
+    changePassword
 } = require("../../controller/users.controller");
 
 
@@ -96,6 +97,14 @@ router.get("/getUserTrip",
     passport.authenticate("jwt", {session: false}),
     authorizing("passenger"),
     getUserHistoryTrip
+)
+
+// route: api/user/changePassword
+// desc:  change user's password
+// status: private 
+router.patch("/changePassword", 
+    passport.authenticate("jwt", {session: false}),
+    changePassword
 )
 
 // route: api/user/:userId

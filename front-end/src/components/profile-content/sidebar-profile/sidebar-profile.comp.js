@@ -31,9 +31,9 @@ class SidebarProfile extends Component {
                 <div className="user-interface text-center">
                     <img
                         src={
-                            avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"
-                        }
+                            avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"}
                         className="user-avatar"
+                        alt="avatar"
                     />
                     <h5 className="user-name">{fullName}</h5>
                 </div>

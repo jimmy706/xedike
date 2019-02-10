@@ -18,19 +18,21 @@ export default class TripListItem extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
-            .then(res => {
-                const { address, carInfo, passengerRates, userId, passportId, job } = res.data;
-                this.setState({
-                    address,
-                    carInfo,
-                    passengerRates,
-                    userId,
-                    passportId,
-                    job
+        if (this.props.driver._id) {
+            axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
+                .then(res => {
+                    const { address, carInfo, passengerRates, userId, passportId, job } = res.data;
+                    this.setState({
+                        address,
+                        carInfo,
+                        passengerRates,
+                        userId,
+                        passportId,
+                        job
+                    })
                 })
-            })
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
+        }
     }
 
     calcRate = () => {
@@ -97,9 +99,8 @@ export default class TripListItem extends Component {
                         <NumberFormat value={trip.fee} displayType={'text'} thousandSeparator={true} />
                         <sup>vnd</sup>
                     </h3>
-                    <Link className="btn-action float-right" to={{
-                        pathname: "/",
-                    }}>Đặt chỗ</Link>
+                    <Link className="btn-action float-right" to={"/book-trip/" + trip._id}>Đặt chỗ</Link>
+
                 </div>
             </li>
         )

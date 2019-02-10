@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import "./trip-list.css";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import TripItem from "./trip-item/trip-item.comp";
 import EmptyTripList from "./empty-list/empty-trip-list.comp";
 
 class TripsListComp extends Component {
-    
-    renderTripList (){
-      const {userList, tripList} = this.props;
 
-      if(!tripList.length){
-        return <EmptyTripList/>        
-      }      
-      else {
-        return tripList.map((trip, index) => {
-          const driver = userList.find(user => {
-            return user._id === trip.driverId;
-          })
-          if(!trip.isFinished)  
-            return <TripItem driver = {driver} trip= {trip} key = {index}/>
-        })
-      }
+  renderTripList() {
+    const { userList, tripList } = this.props;
+
+    if (!tripList.length) {
+      return <EmptyTripList />
     }
+    else {
+      return tripList.map((trip, index) => {
+        const driver = userList.find(user => {
+          return user._id === trip.driverId;
+        })
+        if (!trip.isFinished)
+          return <TripItem driver={driver} trip={trip} key={index} />
+      })
+    }
+  }
 
   render() {
     return (

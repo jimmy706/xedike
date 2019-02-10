@@ -7,7 +7,7 @@ import {
 
 
 
-class PasswordChangeForm extends React.Component {
+class PasswordChangeForm extends Component {
     constructor(props) {
         super(props);
         this.state = {

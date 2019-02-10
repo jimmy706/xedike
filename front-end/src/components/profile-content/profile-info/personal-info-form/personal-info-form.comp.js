@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import moment from "moment";
 
-class RegistrationForm extends React.Component {
+class RegistrationForm extends Component {
     state = {
         confirmDirty: false,
     };
@@ -88,7 +88,7 @@ class RegistrationForm extends React.Component {
                         rules: [{ required: true, message: 'Vui lòng nhập số điện thoại' }],
                         initialValue: phone ? phone : ''
                     })(
-                        <Input style={{ width: '100%', }} />
+                        <Input style={{ width: '100%', }} readOnly />
                     )}
                 </Form.Item>
 
