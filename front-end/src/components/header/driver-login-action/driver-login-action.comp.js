@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
 import "./driver-login-action.css";
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Modal } from 'antd';
 import { connect } from "react-redux";
 import { actLogout } from "../../../actions/user-action";
 import { actRemoveDriverProfile } from "../../../actions/driver-action";
 import { Link } from "react-router-dom";
 import { Icon } from "antd";
+import CreateTripComp from './create-trip/create-trip.comp';
 
 
 class DriverLoginAction extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false
+        }
+    }
     handleLogout = () => {
         this.props.actLogout();
         this.props.actRemoveDriverProfile();
     }
+
+    showModal = (e) => {
+        console.log('sdsdsdsd')
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
     render() {
         const { avatar } = this.props.user;
 
@@ -22,7 +44,7 @@ class DriverLoginAction extends Component {
                     <Link to="/profile">Thông tin cá nhân</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">Lịch sử hành trình</a>
+                    <a target="_blank" rel="noopener noreferrer" href="/">Lịch sử hành trình</a>
                 </Menu.Item>
                 <Menu.Item>
                     <span onClick={this.handleLogout}>Đăng xuất</span>
@@ -32,11 +54,19 @@ class DriverLoginAction extends Component {
 
         return (
             <div className="mr-5" style={{ display: "flex" }}>
-                <button className="btn-action mr-3"><Icon type="plus" /> Tạo chuyến đi</button>
-                <Dropdown overlay={menu} placement="bottomCenter">
+                <button className="btn-action mr-3" onClick={this.showModal}><Icon type="plus" /> Tạo chuyến đi</button>
+                <Dropdown overlay={menu} placement="bottomCenter" >
                     <img src={avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"}
                         alt="user avatar" className="user-avatar img-fluid" />
                 </Dropdown>
+                <Modal
+                    title="Tạo chuyến đi của bạn "
+                    visible={this.state.visible}
+                    onCancel={this.handleCancel}
+                    footer={null}
+                >
+                    <CreateTripComp />
+                </Modal>
             </div>
         )
     }

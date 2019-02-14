@@ -7,7 +7,7 @@ export default function footer() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-3 col-sm-6 col-12">
-            <img src="http://localhost:3000/img/img_logo_footer.png" className="mb-4" alt="logo footer" />
+            <img src="https://xedike.vn/images/img_logo_footer.png" className="mb-4" alt="logo footer" />
             <ul className="footer__list">
               <li>
                 <i className="fa fa-phone icon"></i> <strong>Hỗ trợ hành khách: </strong> <span>0905.93.34.53</span>
@@ -19,9 +19,9 @@ export default function footer() {
                 <i className="fa fa-envelope icon"></i> <strong>Email: </strong> <span>cs@xedike.vn</span>
               </li>
               <li>
-                <a href="/" className="mx-1"><img src="http://localhost:3000/img/facebook.png" width="40px" height="40px" alt="facebook" /></a>
-                <a href="/" className="mx-1"><img src="http://localhost:3000/img/linkedin.png" width="40px" height="40px" alt="linkedin" /></a>
-                <a href="/" className="mx-1"><img src="http://localhost:3000/img/ic_zalo.png" width="40px" height="40px" alt="zalo" /></a>
+                <a href="/" className="mx-1"><img src="https://xedike.vn/images/facebook.png" width="40px" height="40px" alt="facebook" /></a>
+                <a href="/" className="mx-1"><img src="https://xedike.vn/images/linkedin.png" width="40px" height="40px" alt="linkedin" /></a>
+                <a href="/" className="mx-1"><img src="https://xedike.vn/images/ic_zalo.png" width="40px" height="40px" alt="zalo" /></a>
               </li>
             </ul>
           </div>

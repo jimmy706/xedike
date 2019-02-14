@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import {
-    Form, Input, Select, Button, InputNumber,
+    Form, Input, Select, Button, InputNumber
 } from 'antd';
 import places from "../../../constants/places-data";
+import axios from "axios";
+import swal from 'sweetalert';
+
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -20,14 +23,32 @@ class BookTripForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                axios({
+                    method: 'POST',
+                    url: `http://localhost:5500/api/trip/bookTrip/${this.props.tripId}`,
+                    data: values
+                })
+                    .then(res => {
+                        swal("Đăng ký thành công!", "Bạn đã có thể tham gia cuộc hành trình này", "success");
+                        setTimeout(() => {
+                            window.location.href = "http://localhost:3001";
+                        }, 500);
+                    })
+                    .catch(err => {
+                        if (err.response.status === 500) {
+                            swal("Lỗi!", err.response.data.error, "warning");
+                        }
+                        else if (err.response.status === 401) {
+                            swal("Lỗi!", "Yêu cầu đăng nhập để tiếp tục", "warning");
+                        }
+                    })
             }
         });
     }
 
     renderOptions = () => {
-        return places.sort((a, b) => a.value.localeCompare(b.value)).map(place => {
-            return <Option value={place.value}>{place.label}</Option>
+        return places.sort((a, b) => a.value.localeCompare(b.value)).map((place, index) => {
+            return <Option value={place.value} key={index}>{place.label}</Option>
         })
     }
 

@@ -18,7 +18,7 @@ export default class TripListItem extends Component {
     }
 
     componentDidMount() {
-        if (this.props.driver._id) {
+        if (this.props.driver) {
             axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)
                 .then(res => {
                     const { address, carInfo, passengerRates, userId, passportId, job } = res.data;

@@ -19,7 +19,7 @@ export default class BookTripPage extends Component {
     render() {
 
 
-        const { tripId } = (this.props.match);
+        const { tripId } = (this.props.match.params);
         return (
             <div>
                 <HeaderComp />

@@ -4,6 +4,13 @@ import { Rate } from 'antd';
 import "./sidebar-profile.css";
 
 class SidebarProfile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            registerTime: ''
+        }
+    }
+
     calcRate = () => {
         if (Object.keys(this.props.driverProfile).length) {
             const { passengerRates } = this.props.driverProfile;
@@ -13,7 +20,7 @@ class SidebarProfile extends Component {
                     sum += num;
                 }
 
-                return (sum / passengerRates.length).toFixed(1);
+                return parseFloat((sum / passengerRates.length).toFixed(1));
             }
             else
                 return 0.0;
@@ -21,10 +28,11 @@ class SidebarProfile extends Component {
     }
 
     render() {
-        const registerTime = (this.props.registerDate) ? new Date(this.props.registerDate).toLocaleDateString() : '';
-
+        const registerTime = (this.props.registerDate !== '') ? new Date(this.props.registerDate).toLocaleDateString() : '';
         const { avatar, fullName, userType, numberOfTrips } = this.props;
-        const { driverProfile } = this.props.user;
+        // const { driverProfile } = this.props.user;
+
+        console.log(this.props);
 
         return (
             <div className="sidebar-profile box-wrapper">
@@ -42,7 +50,7 @@ class SidebarProfile extends Component {
                     <p>Thành viên từ: <span>{registerTime}</span></p>
 
                     {
-                        (userType === "driver" && Object.keys(driverProfile).length)
+                        (userType === "driver")
                             ? (
                                 <div>
                                     <strong>Đánh giá:</strong>
