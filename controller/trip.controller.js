@@ -43,7 +43,7 @@ module.exports.bookTrip = (req, res) => {
         .then(trip => {
             if(!trip) return res.status(400).json({error: "Trip not found"});            
             if(trip.passengers.find(passenger => passenger.passengerId == passengerId)){
-                return res.status(400).json({error: "This passenger has already booked this trip"});
+                return res.status(500).json({error: "This passenger has already booked this trip"});
             }
 
 

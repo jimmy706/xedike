@@ -2,11 +2,38 @@ import React, { Component } from 'react';
 import { Select, Icon, DatePicker, InputNumber, Row, Col } from 'antd';
 import "./action-box.css";
 import moment from "moment";
+import places from "../../../../../constants/places-data";
+
 
 const Option = Select.Option;
 
 export default class ActionBox extends Component {
+
+
+    renderOptions = () => {
+        return places.sort((a, b) => a.value.localeCompare(b.value)).map((place, index) => {
+            return <Option value={place.value} key={index}>{place.label}</Option>
+        })
+    }
+
+    handleChangeLocationForm = (e) => {
+        this.props.handleOnChange("locationFrom", e);
+    }
+
+    handleChangeLocationTo = (e) => {
+        this.props.handleOnChange("locationTo", e);
+    }
+
+    handleOnChangeSeat = (e) => {
+        this.props.handleOnChange("availableSeats", e);
+    }
+
+    handleOnChangeStartDate = (e) => {
+        this.props.handleOnChange("startTime", e);
+    }
+
     render() {
+        const { locationFrom, locationTo, startTime, availableSeats } = this.props;
         return (
             <Row type="flex">
                 <Col span={6}>
@@ -16,12 +43,12 @@ export default class ActionBox extends Component {
                         placeholder="Nơi đi"
                         optionFilterProp="children"
                         filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                        name="locationFrom"
                         size="large"
                         suffixIcon={<Icon type="environment" theme="twoTone" twoToneColor="#2bc71f" />}
+                        value={locationFrom}
+                        onChange={this.handleChangeLocationForm}
                     >
-                        <Option value="Cần Thơ">Cần Thơ</Option>
-                        <Option value="Sài Gòn">Sài Gòn</Option>
+                        {this.renderOptions()}
                     </Select>
                 </Col>
 
@@ -34,23 +61,28 @@ export default class ActionBox extends Component {
                         name="locationTo"
                         size="large"
                         suffixIcon={<Icon type="environment" theme="twoTone" twoToneColor="#F95F48" />}
+                        value={locationTo}
+                        onChange={this.handleChangeLocationTo}
                     >
-                        <Option value="Cần Thơ">Cần Thơ</Option>
-                        <Option value="Sài Gòn">Sài Gòn</Option>
+                        {this.renderOptions()}
                     </Select>
                 </Col>
 
                 <Col span={8}>
-                    <DatePicker size="large" name="startTime" defaultValue={moment(new Date(), 'DD/MM/YYYY')}/>
+                    <DatePicker size="large" name="startTime" defaultValue={moment(startTime, 'DD/MM/YYYY')}
+                        onChange={this.handleOnChangeStartDate}
+                    />
                 </Col>
 
                 <Col span={4}>
-                    <InputNumber min={1} max={10} defaultValue={1} size="large"
-                        formatter={value => `${value} chỗ`} 
+                    <InputNumber min={1} max={10} defaultValue={availableSeats} size="large"
+                        formatter={value => `${value} chỗ`}
                         name="numberOfSeats"
+                        onChange={this.handleOnChangeSeat}
                     />
                 </Col>
             </Row>
         )
     }
 }
+

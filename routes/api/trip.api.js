@@ -33,7 +33,7 @@ router.get("/getAllTrip", getTrips);
 router.post("/createTrip", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
-    validateCreateTrip,
+    // validateCreateTrip,
     createTrip
 );
 
@@ -61,7 +61,7 @@ router.post("/cancelTrip/:tripId",
 router.patch("/updateTrip/:tripId", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
-    validateCreateTrip,
+    // validateCreateTrip,
     updateTrip
 );
 

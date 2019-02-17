@@ -11,14 +11,14 @@ export const actStoreTripsData = (tripList) => {
 export const actGetTripList = () => {
     return (dispatch) => {
         axios({
-            ethod: 'GET',
+            method: 'GET',
             url: 'http://localhost:5500/api/trip/getAllTrip'
         })
-        .then(res => {
-            dispatch(actStoreTripsData(res.data))
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            .then(res => {
+                dispatch(actStoreTripsData(res.data))
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 }

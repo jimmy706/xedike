@@ -22,14 +22,12 @@ class DriverLoginAction extends Component {
     }
 
     showModal = (e) => {
-        console.log('sdsdsdsd')
         this.setState({
             visible: true,
         });
     }
 
     handleCancel = (e) => {
-        console.log(e);
         this.setState({
             visible: false,
         });
@@ -64,8 +62,9 @@ class DriverLoginAction extends Component {
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
                     footer={null}
+                    className="modal-create-trip"
                 >
-                    <CreateTripComp />
+                    <CreateTripComp handleCancel={this.handleCancel} />
                 </Modal>
             </div>
         )
