@@ -85,7 +85,7 @@ class PasswordChangeForm extends Component {
                             required: true, message: 'Vui lòng nhập mật khẩu cũ!',
                         }],
                     })(
-                        <Input type="password" />
+                        <Input type="password" placeholder="Nhập mật khẩu cũ" />
                     )}
                 </Form.Item>
 
@@ -100,7 +100,7 @@ class PasswordChangeForm extends Component {
                             validator: this.validateToNextPassword,
                         }],
                     })(
-                        <Input type="password" />
+                        <Input type="password" placeholder="Nhập mật khẩu mới" />
                     )}
                 </Form.Item>
 
@@ -115,7 +115,7 @@ class PasswordChangeForm extends Component {
                             validator: this.compareToFirstPassword,
                         }],
                     })(
-                        <Input type="password" onBlur={this.handleConfirmBlur} />
+                        <Input type="password" onBlur={this.handleConfirmBlur} placeholder="Nhập mật khẩu xác nhận" />
                     )}
                 </Form.Item>
 

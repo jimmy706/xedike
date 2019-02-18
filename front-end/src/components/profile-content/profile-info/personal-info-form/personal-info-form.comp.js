@@ -76,7 +76,7 @@ class RegistrationForm extends Component {
                         rules: [{ required: true, message: 'Vui lòng nhập họ và tên!' }],
                         initialValue: fullName ? fullName : ''
                     })(
-                        <Input />
+                        <Input placeholder="Nhập họ tên của bạn" />
                     )}
                 </Form.Item>
 

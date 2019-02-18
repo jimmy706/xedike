@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Rate } from 'antd';
 import "./sidebar-profile.css";
+import axios from "axios";
 
 class SidebarProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            registerTime: ''
+            registerTime: '',
+            avatar: "./img/user-ic.png"
         }
     }
 
@@ -27,28 +29,60 @@ class SidebarProfile extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { avatar } = nextProps;
+        if (avatar) {
+            this.setState({
+                registerTime: new Date(nextProps.registerDate).toLocaleDateString(),
+                avatar: "http://localhost:5500/" + avatar
+            })
+        }
+        else {
+            this.setState({
+                registerTime: new Date(nextProps.registerDate).toLocaleDateString(),
+            })
+        }
+    }
+
+    handleChangeAvatar = (e) => {
+        const formData = new FormData();
+
+        formData.append('avatar', e.target.files[0]);
+        axios.post("http://localhost:5500/api/user/uploadAvatar", formData)
+            .then(res => {
+                this.setState({
+                    avatar: "http://localhost:5500/" + res.data.avatar
+                }, () => {
+                    console.log(this.state)
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     render() {
-        const registerTime = (this.props.registerDate !== '') ? new Date(this.props.registerDate).toLocaleDateString() : '';
-        const { avatar, fullName, userType, numberOfTrips } = this.props;
-        // const { driverProfile } = this.props.user;
-
-        console.log(this.props);
-
+        const { registerTime, avatar } = this.state;
+        const { fullName, userType, numberOfTrips } = this.props;
         return (
             <div className="sidebar-profile box-wrapper">
                 <div className="user-interface text-center">
                     <img
-                        src={
-                            avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"}
+                        src={avatar}
                         className="user-avatar"
                         alt="avatar"
                     />
-                    <h5 className="user-name">{fullName}</h5>
+                    <div className="overlay-avatar">
+                        <label htmlFor="change-avatar">
+                            <i className="fa fa-file-image-o"></i>
+                        </label>
+                        <input type="file" id="change-avatar" onChange={this.handleChangeAvatar} className="d-none" />
+                    </div>
                 </div>
-                <div className="user-active mt-5">
+                <h5 className="user-name text-center">{fullName}</h5>
+                <div className="user-active mt-3">
                     <strong>Hoạt động: </strong>
                     <p>Thành viên từ: <span>{registerTime}</span></p>
-
                     {
                         (userType === "driver")
                             ? (
@@ -63,7 +97,6 @@ class SidebarProfile extends Component {
                                     <span>{numberOfTrips ? numberOfTrips : 0}</span>
                                 </div>
                             )
-
                     }
                 </div>
 

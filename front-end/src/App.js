@@ -20,7 +20,7 @@ class App extends Component {
       setAuthToken(localStorage.jwtToken);
       const decode = jwtDecode(localStorage.jwtToken);
       store.dispatch(setCurrentUser(decode));
-      if (decode.exp > new Date().getTime()) {
+      if (decode.exp < Math.floor(Date.now() / 1000)) {
         store.dispatch(actLogout);
       }
     }

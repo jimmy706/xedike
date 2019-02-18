@@ -4,6 +4,7 @@ import axios from "axios";
 import SidebarProfile from './sidebar-profile/sidebar-profile.comp';
 import ProfileInfo from './profile-info/profile-info.comp';
 import { actGetDriverProfile } from "../../actions/driver-action";
+import ProfileDriver from './profile-driver/profile-driver.comp';
 
 class ProfileContent extends Component {
     constructor(props) {
@@ -78,6 +79,7 @@ class ProfileContent extends Component {
                                 phone={phone}
                                 dateOfBirth={dateOfBirth}
                             />
+                            {userType === "driver" ? <ProfileDriver /> : null}
                         </div>
                     </div>
                 </div>
