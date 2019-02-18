@@ -42,7 +42,7 @@ class DriverLoginAction extends Component {
                     <Link to="/profile">Thông tin cá nhân</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/">Lịch sử hành trình</a>
+                    <Link to="/trips-history">Lịch sử hành trình</Link>
                 </Menu.Item>
                 <Menu.Item>
                     <span onClick={this.handleLogout}>Đăng xuất</span>

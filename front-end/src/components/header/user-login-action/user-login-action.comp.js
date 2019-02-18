@@ -18,7 +18,7 @@ class UserLoginAction extends Component {
                     <Link to="/profile">Thông tin cá nhân</Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">Lịch sử hành trình</a>
+                    <Link to="/trips-history">Lịch sử hành trình</Link>
                 </Menu.Item>
                 <Menu.Item>
                     <span onClick={this.props.actLogout}>Đăng xuất</span>

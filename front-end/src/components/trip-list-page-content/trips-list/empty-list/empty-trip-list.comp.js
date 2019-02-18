@@ -6,7 +6,7 @@ export default class EmptyTripList extends Component {
             <div className="text-center my-5 mx-auto">
                 <img alt="trip list empty" src="./img/img_trip_empty.png" />
                 <p className="mt-2">
-                    <b>Hiện chưa có chuyến đi nào</b>
+                    <b>{this.props.message}</b>
                 </p>
             </div>
         )

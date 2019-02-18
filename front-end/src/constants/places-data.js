@@ -9,7 +9,7 @@ const places = [
     },
     {
         value: 'Nha Trang',
-        label: 'Đà Nẵng'
+        label: 'Nha Trang'
     },
     {
         value: 'Qui Nhơn',
@@ -26,6 +26,14 @@ const places = [
     {
         value: 'Đà Lạt',
         label: 'Đà Lạt'
+    },
+    {
+        value: 'Hà Nội',
+        label: 'Hà Nội'
+    },
+    {
+        value: 'Sapa',
+        label: 'Sapa'
     },
 ];
 

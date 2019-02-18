@@ -10,7 +10,7 @@ class TripsListComp extends Component {
     const { userList, tripList } = this.props;
 
     if (!tripList.length) {
-      return <EmptyTripList />
+      return <EmptyTripList message={"Hiện chưa có chuyến đi nào"} />
     }
     else {
       return tripList.map((trip, index) => {

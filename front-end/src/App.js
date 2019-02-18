@@ -9,10 +9,10 @@ import TripListPage from "./containers/trip-list";
 import ProfileDriverPage from "./containers/profile-driver";
 import ProfilePage from "./containers/profile";
 import BookTripPage from './containers/book-trip';
-
+import TripHistoryPage from "./containers/trip-history";
 import setAuthToken from "./utils/set-auth";
-
 import { setCurrentUser, actLogout } from "./actions/user-action";
+
 class App extends Component {
   componentDidMount() {
     if (localStorage.jwtToken) {
@@ -20,7 +20,7 @@ class App extends Component {
       setAuthToken(localStorage.jwtToken);
       const decode = jwtDecode(localStorage.jwtToken);
       store.dispatch(setCurrentUser(decode));
-      if (decode.exp > new Date()) {
+      if (decode.exp > new Date().getTime()) {
         store.dispatch(actLogout);
       }
     }
@@ -36,6 +36,7 @@ class App extends Component {
           <Route path="/profile" component={ProfilePage} ></Route>
           <Route path="/book-trip/:tripId" component={BookTripPage}></Route>
           <Route path="/trips" component={TripListPage} ></Route>
+          <Route path="/trips-history" component={TripHistoryPage}></Route>
         </Switch>
       </BrowserRouter>
     );
