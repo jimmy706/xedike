@@ -18,7 +18,8 @@ const {
     addDriverCar,
     updateDriverCar,
     deleteDriverCar,
-    getDriverTrip
+    getDriverTrip,
+    adjustDriverProfile
 } = require("../../controller/drivers.controller");
 const {Driver} = require("../../models/User");
 const {Trip} = require("../../models/Trip");
@@ -37,6 +38,13 @@ router.post("/createProfile",
     validateDriverProfile,
     createDriverProfile
 );
+
+router.post("/adjustDriverProfile",
+    passport.authenticate("jwt", {session: false}),
+    authorizing("driver"),
+    validateDriverProfile,
+    adjustDriverProfile
+)
 
 // route: api/user/driver/deleteProfile
 // desc: delete driver's profile

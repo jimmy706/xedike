@@ -3,6 +3,9 @@ import {
     Form, Input, Button
 } from 'antd';
 import { connect } from "react-redux";
+import axios from "axios";
+import swal from 'sweetalert';
+
 
 class DriverProfileForm extends Component {
 
@@ -10,15 +13,36 @@ class DriverProfileForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                if (Object.keys(this.props.driverProfile).length) {
+                    axios.post("http://localhost:5500/api/user/driver/adjustDriverProfile", values)
+                        .then(res => {
+                            console.log(res.data);
+                            swal("Sửa thông tin thành công!", "Thông tài về tài xế đã được cập nhật", "success");
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
+                else {
+                    axios.post("http://localhost:5500/api/user/driver/createProfile", values)
+                        .then(res => {
+                            swal("Thêm thông tin thành công!", "Thông tài về tài xế đã được cập nhật", "success");
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
+            }
+            else {
+                console.log(err);
             }
         });
     }
 
-
     render() {
-        console.log(this.props);
         const { getFieldDecorator } = this.props.form;
+        const { passportId, address, job } = this.props.driverProfile;
 
         const formItemLayout = {
             labelCol: {
@@ -43,6 +67,7 @@ class DriverProfileForm extends Component {
             },
         };
 
+
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item
@@ -53,8 +78,10 @@ class DriverProfileForm extends Component {
                         rules: [{
                             required: true, message: 'Vui lòng nhập địa chỉ!',
                         }],
+                        initialValue: address,
                     })(
-                        <Input placeholder="Nhập địa chỉ của bạn" style={{ width: '100%', }} />
+                        <Input placeholder="Nhập địa chỉ của bạn" style={{ width: '100%', }}
+                            onChange={this.handleChangeAddress} value={address} />
                     )}
                 </Form.Item>
 
@@ -64,8 +91,10 @@ class DriverProfileForm extends Component {
                 >
                     {getFieldDecorator('passportId', {
                         rules: [{ required: true, message: 'Vui lòng nhập số cmnd!' }],
+                        initialValue: passportId,
                     })(
-                        <Input placeholder="Nhập số cmnd của bạn" style={{ width: '100%', }} />
+                        <Input placeholder="Nhập số cmnd của bạn" style={{ width: '100%', }}
+                            onChange={this.handleChangePassport} />
                     )}
                 </Form.Item>
 
@@ -75,8 +104,10 @@ class DriverProfileForm extends Component {
                 >
                     {getFieldDecorator('job', {
                         rules: [{ required: true, message: 'Vui lòng nhập nghề nghiệp của bạn' }],
+                        initialValue: job,
                     })(
-                        <Input style={{ width: '100%', }} placeholder="Nhập nghề nghiệp của bạn" />
+                        <Input style={{ width: '100%', }} placeholder="Nhập nghề nghiệp của bạn"
+                            onChange={this.handleChangeJob} value={job} />
                     )}
                 </Form.Item>
 

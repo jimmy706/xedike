@@ -25,6 +25,24 @@ module.exports.createDriverProfile = (req, res) => {
         .catch(err => res.status(400).json(err))
 }
 
+module.exports.adjustDriverProfile = (req, res) => {
+    const {address, passportId, job} = req.body;
+
+    Driver.findOne({userId: req.user.id})
+        .then(driver => {
+            if(!driver) {
+                return res.status(400).json({error: "Driver's profile is not existed"});
+            }
+
+            driver.address = address;
+            driver.passportId = passportId;
+            driver.job = job;
+            return driver.save()
+        })
+        .then(driver => res.status(200).json(driver))
+        .catch(err => res.status(400).json(err))
+}
+
 // TODO: delete driver's profile
 module.exports.deleteDriverProfile =  (req, res) => {
     Driver.findOneAndDelete({userId: req.user.id})
