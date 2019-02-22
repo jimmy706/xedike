@@ -5,7 +5,7 @@ import { Icon, Row, Col } from 'antd';
 import ActionBox from './action-box/action-box.comp';
 import { connect } from "react-redux";
 import { changeSearchValue } from "../../../../actions/search-action";
-
+import { Link } from "react-router-dom";
 
 class SearchTripForm extends Component {
   constructor(props) {
@@ -66,9 +66,11 @@ class SearchTripForm extends Component {
           </Col>
 
           <Col md={4} xs={24}>
-            <button className="btn-xedike" type="submit">
-              <Icon type="search" />Tìm kiếm
-            </button>
+            <Link to="/trips">
+              <button className="btn-xedike">
+                <Icon type="search" />Tìm kiếm
+              </button>
+            </Link>
           </Col>
         </Row>
 

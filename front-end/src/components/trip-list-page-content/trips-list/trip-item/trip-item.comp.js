@@ -52,9 +52,9 @@ export default class TripItem extends Component {
 
 
     return (
-      <li className="trip-list-item">
+      <li className="trip-list-item row">
 
-        <div className="wrapper">
+        <div className="wrapper col-md-3 col-6">
           <div className="location">
             <span className="location-from">{trip.locationFrom}</span>
             <i className="fa fa-arrow-right mx-2" ></i>
@@ -66,7 +66,7 @@ export default class TripItem extends Component {
           </div>
         </div>
 
-        <div className="wrapper">
+        <div className="wrapper col-md-3 col-6">
           <div className="car-name">Lamorghini 2019</div>
           <div className="number-of-seats">
             <i className="fa fa-users"></i>
@@ -74,12 +74,14 @@ export default class TripItem extends Component {
           </div>
         </div>
 
-        <div className="wrapper">
+        <div className="wrapper col-md-3 col-6">
           <div className="driver">
             {driver ?
-              (<img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"}
-                alt="avatar"
-                className="avatar mr-1 rounded-circle" />)
+              <Link to={"/driverProfile/" + this.state.userId} >
+                <img src={driver.avatar ? ("http://localhost:5500/" + driver.avatar) : "./img/user-ic.png"}
+                  alt="avatar"
+                  className="avatar mr-1 rounded-circle" />
+              </Link>
               :
               (<span>Loading...</span>)
             }
@@ -93,7 +95,7 @@ export default class TripItem extends Component {
           </div>
         </div>
 
-        <div className="wrapper">
+        <div className="wrapper col-md-3 col-6">
           <b className="fee d-inline mr-3">
             <NumberFormat value={trip.fee} displayType={'text'} thousandSeparator={true} />
             <sup>vnd</sup>

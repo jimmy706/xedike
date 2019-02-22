@@ -17,6 +17,7 @@ export default class TripListItem extends Component {
         }
     }
 
+
     componentDidMount() {
         if (this.props.driver) {
             axios.get(`http://localhost:5500/api/user/driver/${this.props.driver._id}`)

@@ -7,19 +7,35 @@ import EmptyTripList from "./empty-list/empty-trip-list.comp";
 class TripsListComp extends Component {
 
   renderTripList() {
-    const { userList, tripList } = this.props;
+    const { userList, tripList, searchValue } = this.props;
 
     if (!tripList.length) {
       return <EmptyTripList message={"Hiện chưa có chuyến đi nào"} />
     }
     else {
-      return tripList.map((trip, index) => {
-        const driver = userList.find(user => {
-          return user._id === trip.driverId;
+      if (searchValue.locationFrom === "" || searchValue.locationTo === "") {
+        // render full trip list
+        return tripList.map((trip, index) => {
+          const driver = userList.find(user => {
+            return user._id === trip.driverId;
+          })
+          if (!trip.isFinished)
+            return <TripItem driver={driver} trip={trip} key={index} />
         })
-        if (!trip.isFinished)
-          return <TripItem driver={driver} trip={trip} key={index} />
-      })
+      }
+      else {
+        // render filter
+        return tripList.map((trip, index) => {
+          const driver = userList.find(user => {
+            return user._id === trip.driverId;
+          })
+          if (
+            !trip.isFinished
+            && trip.locationFrom === searchValue.locationFrom &&
+            trip.locationTo === searchValue.locationTo)
+            return <TripItem driver={driver} trip={trip} key={index} />
+        })
+      }
     }
   }
 
@@ -40,8 +56,11 @@ class TripsListComp extends Component {
 const mapStateToProps = (state) => {
   return {
     tripList: state.tripList,
-    userList: state.userList
+    userList: state.userList,
+    searchValue: state.searchValue
   }
 }
+
+
 
 export default connect(mapStateToProps, null)(TripsListComp);

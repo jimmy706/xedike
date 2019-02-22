@@ -5,6 +5,8 @@ import ActionBox from "./action-group/action-group.comp";
 import { connect } from "react-redux";
 import UserLoginAction from "./user-login-action/user-login-action.comp";
 import DriverLoginAction from "./driver-login-action/driver-login-action.comp";
+import { changeSearchValue } from "../../actions/search-action";
+
 
 class header extends Component {
   constructor(props) {
@@ -32,6 +34,10 @@ class header extends Component {
     })
   }
 
+  handleResetSearchValue = (e) => {
+    this.props.onChangeSearchValue("", "", new Date(), 1);
+  }
+
   render() {
     return (
       <header>
@@ -42,7 +48,7 @@ class header extends Component {
 
 
           <div className="navbar-btn-group">
-            <Link className="nav-link" to="/trips">Danh sách chuyến đi</Link>
+            <Link className="nav-link" to="/trips" onClick={this.handleResetSearchValue}>Danh sách chuyến đi</Link>
             {this.renderActionGroup()}
 
           </div>
@@ -60,4 +66,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeSearchValue: (locationFrom, locationTo, startTime, availableSeats) => {
+      dispatch(changeSearchValue(locationFrom, locationTo, startTime, availableSeats));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

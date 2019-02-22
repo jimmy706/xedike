@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
 import { connect } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import "./trip-history-item.css";
 
 class TripHistoryItem extends Component {
@@ -12,6 +14,8 @@ class TripHistoryItem extends Component {
             locationTo: '',
             availableSeats: 0,
             fee: 0,
+            driverProfile: undefined,
+            avatar: "./img/user-ic.png"
         }
     }
 
@@ -22,12 +26,42 @@ class TripHistoryItem extends Component {
             locationFrom,
             locationTo,
             availableSeats,
-            fee
+            fee,
+            avatar: "http://localhost:5500/" + this.props.userList.find(user => {
+                return user._id === this.props.tripInfo.driverId
+            }).avatar
         })
+
+        axios.get(`http://localhost:5500/api/user/driver/${this.props.tripInfo.driverId}`)
+            .then(res => {
+                this.setState({
+                    driverProfile: res.data
+                })
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+
+    }
+
+    calcRate = () => {
+        if (this.state.driverProfile) {
+            const { passengerRates } = this.state.driverProfile;
+            if (passengerRates.length) {
+                let sum = 0;
+                for (let num of passengerRates) {
+                    sum += num;
+                }
+
+                return (sum / passengerRates.length).toFixed(1);
+            }
+            else
+                return 0.0;
+        }
     }
 
     render() {
-        const { startTime, locationFrom, locationTo, availableSeats, fee } = this.state;
+        const { startTime, locationFrom, locationTo, availableSeats, fee, driverProfile, avatar } = this.state;
         return (
             <div className="trip-item trip-history-item">
                 <div className="wrapper">
@@ -52,13 +86,19 @@ class TripHistoryItem extends Component {
 
                 <div className="wrapper">
                     <div className="driver">
-                        <img src="http://localhost:3000/img/user-ic.png"
-                            alt="avatar"
-                            className="avatar mr-1 rounded-circle" />
+                        {driverProfile ?
+                            <Link to={"/driverProfile/" + driverProfile.userId} >
+                                <img src={avatar}
+                                    alt="avatar"
+                                    className="avatar mr-1 rounded-circle" />
+                            </Link>
+                            :
+                            (<span>Loading...</span>)
+                        }
                         <div>
                             <span>Dang Quoc Dung</span>
                             <p className="rates m-0"><i className="fa fa-star"></i>
-                                4
+                                {this.calcRate()}
                             </p>
                         </div>
                     </div>
@@ -78,7 +118,8 @@ class TripHistoryItem extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.auth.user
+        user: state.auth,
+        userList: state.userList
     }
 }
 
