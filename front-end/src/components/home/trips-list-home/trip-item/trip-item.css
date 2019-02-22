@@ -1,9 +1,10 @@
 .trip-list-item{
     font-family: "Roboto";
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
     margin: 3.5rem 0;
+}
+
+.trip-list-item .wrapper .btn-action{
+    float: right;
 }
 
 .trip-list-item .fa{
@@ -23,4 +24,22 @@
     width: 45px;
     height: 45px;
     border: 0;
+}
+
+@media screen and (max-width: 1200px){
+    .trip-list-item .wrapper .fee{
+        font-size: 1.2rem;
+    }    
+}
+
+@media screen and (max-width: 990px){
+    .trip-list-item .wrapper .btn-action{
+        float:left;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .trip-list-item .wrapper{
+        margin-top: 1rem;
+    }
 }

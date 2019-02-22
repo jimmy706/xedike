@@ -55,7 +55,7 @@ class SearchTripForm extends Component {
       <form className="search-trip-form pt-5" onSubmit={this.handleSubmit} >
 
         <Row type="flex">
-          <Col span={20} >
+          <Col md={20} xs={24}>
             <ActionBox
               locationFrom={locationFrom}
               locationTo={locationTo}
@@ -65,8 +65,8 @@ class SearchTripForm extends Component {
             />
           </Col>
 
-          <Col span={4} >
-            <button className="btn-xedike rounded-right" type="submit">
+          <Col md={4} xs={24}>
+            <button className="btn-xedike" type="submit">
               <Icon type="search" />Tìm kiếm
             </button>
           </Col>

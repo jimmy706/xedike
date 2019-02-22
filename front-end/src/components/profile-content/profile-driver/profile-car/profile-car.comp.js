@@ -3,6 +3,8 @@ import {
     Form, Input, Button, InputNumber
 } from 'antd';
 import { connect } from "react-redux";
+import swal from 'sweetalert';
+import axios from "axios";
 
 class CarProfileForm extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ class CarProfileForm extends Component {
             numberOfSeats: 2,
             manufacturingYear: '',
             licensePlate: '',
+            carId: ''
         }
     }
 
@@ -21,25 +24,44 @@ class CarProfileForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                if (this.state.carId === "") {
+                    axios.post("http://localhost:5500/api/user/driver/addCar", values)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
+                else {
+                    axios.post("http://localhost:5500/api/user/driver/updateCar/" + this.state.carId, values)
+                        .then(res => {
+                            console.log(res.data);
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
             }
         });
     }
 
     componentWillReceiveProps(nextProps) {
         const { carInfo } = nextProps.driverProfile;
-        if (carInfo.length) {
-            const { brand, model, manufacturingYear, licensePlate, numberOfSeats, carImage } = carInfo[carInfo.length - 1];
-            this.setState({
-                brand,
-                model,
-                manufacturingYear,
-                licensePlate,
-                numberOfSeats,
-                carImage: "http://localhost:5500/" + carImage
-            }, () => {
-                console.log(this.state);
-            })
+        if (carInfo) {
+            if (carInfo.length) {
+                const { brand, model, manufacturingYear, licensePlate, numberOfSeats, carImage } = carInfo[carInfo.length - 1];
+
+                this.setState({
+                    brand,
+                    model,
+                    manufacturingYear,
+                    licensePlate,
+                    numberOfSeats,
+                    carImage: "http://localhost:5500/" + carImage,
+                    carId: carInfo[carInfo.length - 1]._id
+                })
+            }
         }
     }
 
@@ -83,7 +105,7 @@ class CarProfileForm extends Component {
                             rules: [{ required: true, message: 'Vui lòng chọn hình ảnh xe!' }],
                         })(
                             <div style={{ display: 'flex' }}>
-                                <img src={carImage} width="200px" height="150px" className="mr-3" />
+                                <img src={carImage} width="200px" height="150px" className="mr-3" alt="car" />
                                 <Input type="file" />
                             </div>
                         )}

@@ -81,7 +81,7 @@ class DriverProfileForm extends Component {
                         initialValue: address,
                     })(
                         <Input placeholder="Nhập địa chỉ của bạn" style={{ width: '100%', }}
-                            onChange={this.handleChangeAddress} value={address} />
+                            onChange={this.handleChangeAddress} />
                     )}
                 </Form.Item>
 
@@ -107,7 +107,7 @@ class DriverProfileForm extends Component {
                         initialValue: job,
                     })(
                         <Input style={{ width: '100%', }} placeholder="Nhập nghề nghiệp của bạn"
-                            onChange={this.handleChangeJob} value={job} />
+                            onChange={this.handleChangeJob} />
                     )}
                 </Form.Item>
 

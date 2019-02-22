@@ -10,6 +10,7 @@ import ProfileDriverPage from "./containers/profile-driver";
 import ProfilePage from "./containers/profile";
 import BookTripPage from './containers/book-trip';
 import TripHistoryPage from "./containers/trip-history";
+import ProfileDriver from "./containers/profile-driver";
 import setAuthToken from "./utils/set-auth";
 import { setCurrentUser, actLogout } from "./actions/user-action";
 
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path="/profile/driver/:driverId" component={ProfileDriverPage}></Route>
           <Route path="/profile" component={ProfilePage} ></Route>
           <Route path="/book-trip/:tripId" component={BookTripPage}></Route>
+          <Route path="/driverProfile/:driverId" component={ProfileDriver}></Route>
           <Route path="/trips" component={TripListPage} ></Route>
           <Route path="/trips-history" component={TripHistoryPage}></Route>
         </Switch>

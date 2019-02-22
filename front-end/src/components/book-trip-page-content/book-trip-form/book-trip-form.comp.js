@@ -41,6 +41,11 @@ class BookTripForm extends Component {
                         else if (err.response.status === 401) {
                             swal("Lỗi!", "Yêu cầu đăng nhập để tiếp tục", "warning");
                         }
+                        else {
+                            if (err.response.data.error === "No permission") {
+                                swal("Lỗi!", "Bạn không thể thực hiện chức năng này", "warning");
+                            }
+                        }
                     })
             }
         });

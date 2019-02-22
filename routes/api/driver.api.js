@@ -58,22 +58,22 @@ router.delete("/deleteProfile",
 // route: api/user/driver/addCar
 // desc: add car for driver
 // status: private
-router.put("/addCar", 
+router.post("/addCar", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
     upload.single('carImage'),
-    validateDriverCar,
+    // validateDriverCar,
     addDriverCar
 );
 
 // route: api/user/driver/updateCar/:carId
 // desc: update car
 // status: private
-router.patch("/updateCar/:carId", 
+router.post("/updateCar/:carId", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
     upload.single('carImage'),
-    validateDriverCar,
+    // validateDriverCar,
     updateDriverCar
 );
 

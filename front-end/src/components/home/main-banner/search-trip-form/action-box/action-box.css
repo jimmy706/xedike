@@ -47,3 +47,23 @@
     text-align: center;
 }
 
+@media screen and (max-width: 768px){
+    .search-trip-form .action-item{
+        margin: 1rem 0;
+    }
+
+    .search-trip-form .ant-select-selection{
+        border-radius: 3px;
+    }
+
+    .search-trip-form .ant-input-number-lg{
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
+
+    .search-trip-form .ant-input{
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+}
+

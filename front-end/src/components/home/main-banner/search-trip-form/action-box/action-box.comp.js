@@ -36,9 +36,9 @@ export default class ActionBox extends Component {
         const { locationFrom, locationTo, startTime, availableSeats } = this.props;
         return (
             <Row type="flex">
-                <Col span={6}>
+                <Col md={6} xs={24}>
                     <Select
-                        className="rounded-left"
+                        className="rounded-left action-item"
                         showSearch
                         placeholder="Nơi đi"
                         optionFilterProp="children"
@@ -52,8 +52,9 @@ export default class ActionBox extends Component {
                     </Select>
                 </Col>
 
-                <Col span={6}>
+                <Col md={6} xs={24}>
                     <Select
+                        className="action-item"
                         showSearch
                         placeholder="Nơi đến"
                         optionFilterProp="children"
@@ -68,17 +69,18 @@ export default class ActionBox extends Component {
                     </Select>
                 </Col>
 
-                <Col span={8}>
+                <Col md={8} xs={12}>
                     <DatePicker size="large" name="startTime" defaultValue={moment(startTime, 'DD/MM/YYYY')}
-                        onChange={this.handleOnChangeStartDate}
+                        onChange={this.handleOnChangeStartDate} className="action-item"
                     />
                 </Col>
 
-                <Col span={4}>
+                <Col md={4} xs={12}>
                     <InputNumber min={1} max={10} defaultValue={availableSeats} size="large"
                         formatter={value => `${value} chỗ`}
                         name="numberOfSeats"
                         onChange={this.handleOnChangeSeat}
+                        className="action-item"
                     />
                 </Col>
             </Row>

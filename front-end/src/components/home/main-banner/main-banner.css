@@ -2,7 +2,8 @@
     background: var(--deep-blue);
     font-family: "Roboto";
     color: var(--white);
-    min-height: 840px;
+    min-height: 800px;
+    padding: 3rem 0;
 }
 
 

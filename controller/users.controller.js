@@ -173,7 +173,7 @@ module.exports.updateAccount = (req, res) => {
 // TODO: rate driver
 module.exports.rateDriver = (req, res) => {
     const driverId = req.params.driverId;
-    Driver.findById(driverId)
+    Driver.findOne({userId: driverId})
         .then(driver => {
             if(!driver) return res.status(400).json({error: "Driver not found"});
 
