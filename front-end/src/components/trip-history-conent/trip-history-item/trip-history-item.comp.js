@@ -3,7 +3,10 @@ import NumberFormat from 'react-number-format';
 import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Select } from "antd";
 import "./trip-history-item.css";
+
+const { Option } = Select;
 
 class TripHistoryItem extends Component {
     constructor(props) {
@@ -63,8 +66,8 @@ class TripHistoryItem extends Component {
     render() {
         const { startTime, locationFrom, locationTo, availableSeats, fee, driverProfile, avatar } = this.state;
         return (
-            <div className="trip-item trip-history-item">
-                <div className="wrapper">
+            <div className="trip-item trip-history-item row">
+                <div className="wrapper col-md-3 col-6">
                     <div className="location">
                         <span className="location-from">{locationFrom}</span>
                         <i className="fa fa-arrow-right mx-2" ></i>
@@ -76,7 +79,7 @@ class TripHistoryItem extends Component {
                     </div>
                 </div>
 
-                <div className="wrapper">
+                <div className="wrapper col-md-3 col-6">
                     <div className="car-name">Lamorghini 2019</div>
                     <div className="number-of-seats">
                         <i className="fa fa-users"></i>
@@ -84,7 +87,7 @@ class TripHistoryItem extends Component {
                     </div>
                 </div>
 
-                <div className="wrapper">
+                <div className="wrapper col-md-3 col-6">
                     <div className="driver">
                         {driverProfile ?
                             <Link to={"/driverProfile/" + driverProfile.userId} >
@@ -104,7 +107,7 @@ class TripHistoryItem extends Component {
                     </div>
                 </div>
 
-                <div className="wrapper">
+                <div className="wrapper col-md-3 col-6">
                     <label>Chi phí:  </label>
                     <h5 className="fee d-inline mr-3">
                         <NumberFormat value={fee} displayType={'text'} thousandSeparator={true} />
@@ -118,7 +121,7 @@ class TripHistoryItem extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.auth,
+        user: state.auth.user,
         userList: state.userList
     }
 }

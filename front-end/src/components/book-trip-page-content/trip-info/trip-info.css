@@ -1,7 +1,4 @@
 .book-trip-info-wrapper .trip-info{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
     font-size: 1rem;
 }
 

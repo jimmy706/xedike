@@ -27,7 +27,7 @@ class UserLoginAction extends Component {
         );
 
         return (
-            <div className="mr-5">
+            <div>
                 <Dropdown overlay={menu} placement="bottomCenter">
                     <img src={avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"} alt="user avatar" className="user-avatar img-fluid" />
                 </Dropdown>

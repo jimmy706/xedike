@@ -3,7 +3,6 @@ import {
     Form, Input, Button, InputNumber
 } from 'antd';
 import { connect } from "react-redux";
-import swal from 'sweetalert';
 import axios from "axios";
 
 class CarProfileForm extends Component {
@@ -24,24 +23,32 @@ class CarProfileForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                if (this.state.carId === "") {
-                    axios.post("http://localhost:5500/api/user/driver/addCar", values)
-                        .then(res => {
-                            console.log(res.data);
-                        })
-                        .catch(err => {
-                            console.log(err.response);
-                        })
-                }
-                else {
-                    axios.post("http://localhost:5500/api/user/driver/updateCar/" + this.state.carId, values)
-                        .then(res => {
-                            console.log(res.data);
-                        })
-                        .catch(err => {
-                            console.log(err.response);
-                        })
-                }
+                let data = new FormData();
+                data.append("carProfile", values);
+                console.log(data.values());
+                // if (this.state.carId === "") { // chưa có car
+                //     axios({
+                //         method: "POST",
+                //         url: "http://localhost:5500/api/user/driver/addCar",
+                //         data: values,
+                //         headers: { 'Content-Type': 'multipart/form-data' }
+                //     })
+                //         .then(res => {
+                //             console.log(res.data);
+                //         })
+                //         .catch(err => {
+                //             console.log(err.response);
+                //         })
+                // }
+                // else { // đã có car
+                //     axios.post("http://localhost:5500/api/user/driver/updateCar/" + this.state.carId, values)
+                //         .then(res => {
+                //             console.log(res.data);
+                //         })
+                //         .catch(err => {
+                //             console.log(err.response);
+                //         })
+                // }
             }
         });
     }

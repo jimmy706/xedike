@@ -208,22 +208,27 @@ module.exports.changePassword = (req, res) => {
         .then(user => {
             if(!user) return res.status(400).json({error: "User doesn't exist"});
 
-            const {newPassword} = req.body;
-            user.password = newPassword;
+            const {oldPassword, newPassword} = req.body;  
 
-            bcrypt.genSalt(10, (err, salt) => {
-                if(err) return res.status(400).json(err);
-                bcrypt.hash(user.password, salt, (err, hash) => {
-                    if(err) return res.status(400).json(err);
-                    user.password = hash;
+            bcrypt.compare(oldPassword, user.password) // so sánh password nhập vs password dc hash
+                .then(isMatch => {
+                    if(!isMatch) return res.status(400).json({password: 'Wrong password'});
+                    
+                    user.password = newPassword;
+                    bcrypt.genSalt(10, (err, salt) => {
+                        if(err) return res.status(400).json(err);
+                        bcrypt.hash(user.password, salt, (err, hash) => {
+                            if(err) return res.status(400).json(err);
+                            user.password = hash;
 
-                    user.save()
-                        .then(user => {
-                            return res.status(200).json(user)
+                            user.save()
+                                .then(user => {
+                                    return res.status(200).json(user)
+                                })
+                                .catch(console.log)
                         })
-                        .catch(console.log)
-                })
-            })
+                    })
+                })                                  
         })
         .catch(err => res.status(400).json(err))
 }

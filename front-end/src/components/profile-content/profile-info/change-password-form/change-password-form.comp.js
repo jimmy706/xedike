@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-
-import {
-    Form, Input, Button,
-} from 'antd';
-
-
+import { Form, Input, Button, } from 'antd';
+import axios from "axios";
+import swal from 'sweetalert';
 
 
 class PasswordChangeForm extends Component {
@@ -12,6 +9,7 @@ class PasswordChangeForm extends Component {
         super(props);
         this.state = {
             confirmDirty: false,
+            oldPassword: ''
         };
     }
 
@@ -19,7 +17,22 @@ class PasswordChangeForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                const { newPassword, oldPassword } = values;
+                const data = {
+                    newPassword,
+                    oldPassword
+                }
+                axios.patch("http://localhost:5500/api/user/changePassword", data)
+                    .then(res => {
+                        console.log(res.data);
+                        swal("Thành công!", "Mật khẩu của bạn đã được đổi!", "success");
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                        if (err.response.data.password === "Wrong password") {
+                            swal("Lỗi!", "Mật khẩu cũ của bạn không đúng!", "error");
+                        }
+                    })
             }
         });
     }
@@ -31,8 +44,8 @@ class PasswordChangeForm extends Component {
 
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
+        if (value && value !== form.getFieldValue('newPassword')) {
+            callback('Password nhập lại chưa khớp!');
         } else {
             callback();
         }
@@ -80,7 +93,7 @@ class PasswordChangeForm extends Component {
                     {...formItemLayout}
                     label="Mật khẩu cũ"
                 >
-                    {getFieldDecorator('old-password', {
+                    {getFieldDecorator('oldPassword', {
                         rules: [{
                             required: true, message: 'Vui lòng nhập mật khẩu cũ!',
                         }],
@@ -93,7 +106,7 @@ class PasswordChangeForm extends Component {
                     {...formItemLayout}
                     label="Mật khẩu mới"
                 >
-                    {getFieldDecorator('new-password', {
+                    {getFieldDecorator('newPassword', {
                         rules: [{
                             required: true, message: 'Vui lòng nhập mật khẩu mới!',
                         }, {

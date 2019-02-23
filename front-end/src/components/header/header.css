@@ -1,7 +1,11 @@
 .navbar-xedike{
     background: var(--deep-blue);
     color: var(--white);
-    
+}
+
+.navbar-xedike .navbar-brand img{
+    width: 170px;
+    height: 50px;
 }
 
 .navbar-xedike .navbar-btn-group{
@@ -16,4 +20,15 @@
 
 .navbar-xedike .navbar-btn-group .nav-link:hover{
     color: var(--light-blue);
+}
+
+
+@media screen and (max-width: 640px){
+    .navbar-xedike .navbar-brand img{
+        width: 120px;
+        margin-bottom: 2rem;
+    }
+    .navbar-xedike{
+        justify-content: center;
+    }
 }

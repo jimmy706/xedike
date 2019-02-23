@@ -81,8 +81,8 @@ class TripInfoComp extends Component {
         return (
             <div className="book-trip-info-wrapper">
                 <h4 className="my-3"><Icon type="car" /> Thông tin chuyến đi</h4>
-                <div className="trip-info">
-                    <div className="wrapper">
+                <div className="trip-info row">
+                    <div className="wrapper col-md-4 col-6">
                         <div className="location">
                             <span className="location-from">{locationFrom}</span>
                             <i className="fa fa-arrow-right mx-2" ></i>
@@ -94,7 +94,7 @@ class TripInfoComp extends Component {
                         </div>
                     </div>
 
-                    <div className="wrapper">
+                    <div className="wrapper col-md-4 col-6">
                         <div className="car-name">Lamorghini 2019</div>
                         <div className="number-of-seats">
                             <i className="fa fa-users"></i>
@@ -102,7 +102,7 @@ class TripInfoComp extends Component {
                         </div>
                     </div>
 
-                    <div className="wrapper">
+                    <div className="wrapper col-md-4 col-6">
                         <div className="driver">
                             <img src={
                                 driver.avatar ?
@@ -119,7 +119,7 @@ class TripInfoComp extends Component {
                         </div>
                     </div>
 
-                    <div className="wrapper">
+                    <div className="wrapper col-md-4 col-6">
                         <label>Chi phí: </label>
                         <h5 className="fee d-inline mr-3"> {fee}<sup>vnd</sup>
                         </h5>

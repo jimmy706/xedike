@@ -100,7 +100,7 @@ export default class TripItem extends Component {
             <NumberFormat value={trip.fee} displayType={'text'} thousandSeparator={true} />
             <sup>vnd</sup>
           </b>
-          <Link className="btn-action float-right" to={"/book-trip/" + trip._id}>Đặt chỗ</Link>
+          <Link className="btn-action" to={"/book-trip/" + trip._id}>Đặt chỗ</Link>
         </div>
       </li>
     )

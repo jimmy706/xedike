@@ -51,7 +51,7 @@ class DriverLoginAction extends Component {
         );
 
         return (
-            <div className="mr-5" style={{ display: "flex" }}>
+            <div style={{ display: "flex" }}>
                 <button className="btn-action mr-3" onClick={this.showModal}><Icon type="plus" /> Tạo chuyến đi</button>
                 <Dropdown overlay={menu} placement="bottomCenter" >
                     <img src={avatar ? ("http://localhost:5500/" + avatar) : "./img/user-ic.png"}

@@ -31,7 +31,7 @@ class TripHistoryContent extends Component {
                 .then(res => {
                     this.setState({
                         tripsHistory: res.data,
-                        title: 'Lịch sử các chuyến đi của bạn:'
+                        title: 'Lịch sử chuyến đi của bạn:'
                     })
                 })
                 .catch(err => {

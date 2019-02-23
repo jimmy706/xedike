@@ -43,7 +43,7 @@ class header extends Component {
       <header>
         <nav className="navbar navbar-xedike">
           <Link className="navbar-brand" to="/">
-            <img src="https://xedike.vn/images/img_logo_menu_white.png" width="170px" height="50px" alt="logo" />
+            <img src="https://xedike.vn/images/img_logo_menu_white.png" alt="logo" />
           </Link>
 
 
