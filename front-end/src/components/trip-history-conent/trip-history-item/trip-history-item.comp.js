@@ -3,10 +3,8 @@ import NumberFormat from 'react-number-format';
 import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Select } from "antd";
 import "./trip-history-item.css";
 
-const { Option } = Select;
 
 class TripHistoryItem extends Component {
     constructor(props) {

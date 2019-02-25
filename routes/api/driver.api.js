@@ -19,7 +19,8 @@ const {
     updateDriverCar,
     deleteDriverCar,
     getDriverTrip,
-    adjustDriverProfile
+    adjustDriverProfile,
+    addCarImage
 } = require("../../controller/drivers.controller");
 const {Driver} = require("../../models/User");
 const {Trip} = require("../../models/Trip");
@@ -61,18 +62,23 @@ router.delete("/deleteProfile",
 router.post("/addCar", 
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
-    upload.single('carImage'),
     // validateDriverCar,
     addDriverCar
 );
 
-// route: api/user/driver/updateCar/:carId
-// desc: update car
-// status: private
-router.post("/updateCar/:carId", 
+router.patch("/addCarImage/:carId",
     passport.authenticate("jwt", {session: false}),
     authorizing("driver"),
     upload.single('carImage'),
+    addCarImage
+)
+
+// route: api/user/driver/updateCar/:carId
+// desc: update car
+// status: private
+router.patch("/updateCar/:carId", 
+    passport.authenticate("jwt", {session: false}),
+    authorizing("driver"),
     // validateDriverCar,
     updateDriverCar
 );

@@ -4,6 +4,8 @@ import {
 } from 'antd';
 import { connect } from "react-redux";
 import axios from "axios";
+import swal from 'sweetalert';
+
 
 class CarProfileForm extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class CarProfileForm extends Component {
             numberOfSeats: 2,
             manufacturingYear: '',
             licensePlate: '',
-            carId: ''
+            carId: '',
+            carImageUpload: ''
         }
     }
 
@@ -23,32 +26,53 @@ class CarProfileForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                let data = new FormData();
-                data.append("carProfile", values);
-                console.log(data.values());
-                // if (this.state.carId === "") { // chưa có car
-                //     axios({
-                //         method: "POST",
-                //         url: "http://localhost:5500/api/user/driver/addCar",
-                //         data: values,
-                //         headers: { 'Content-Type': 'multipart/form-data' }
-                //     })
-                //         .then(res => {
-                //             console.log(res.data);
-                //         })
-                //         .catch(err => {
-                //             console.log(err.response);
-                //         })
-                // }
-                // else { // đã có car
-                //     axios.post("http://localhost:5500/api/user/driver/updateCar/" + this.state.carId, values)
-                //         .then(res => {
-                //             console.log(res.data);
-                //         })
-                //         .catch(err => {
-                //             console.log(err.response);
-                //         })
-                // }
+                const { brand, model, manufacturingYear, licensePlate, numberOfSeats } = values;
+                const carProfile = {
+                    brand,
+                    model,
+                    manufacturingYear,
+                    licensePlate,
+                    numberOfSeats
+                }
+                let formData = new FormData();
+                formData.append("carImage", this.state.carImageUpload);
+
+                if (this.state.carId === "") { // chưa có car
+                    axios.post("http://localhost:5500/api/user/driver/addCar", carProfile)
+                        .then(res => {
+                            const carId = res.data._id;
+                            swal("Cập nhật thành công!", "Bạn đã tạo thành công thông tin về xe!", "success");
+                            axios.patch(`http://localhost:5500/api/user/driver/addCarImage/${carId}`, formData)
+                                .then(res => {
+                                    console.log(res.data);
+                                })
+                                .catch(err => {
+                                    console.log(err.response);
+                                })
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
+                else { // đã có car
+                    axios.patch("http://localhost:5500/api/user/driver/updateCar/" + this.state.carId, carProfile)
+                        .then(res => {
+                            swal("Cập nhật thành công!", "Bạn đã cập nhật thành công thông tin về xe!", "success");
+                            const carId = res.data[res.data.length - 1]._id;
+                            if (this.state.carImageUpload !== '') {
+                                axios.patch(`http://localhost:5500/api/user/driver/addCarImage/${carId}`, formData)
+                                    .then(res => {
+                                        console.log(res.data);
+                                    })
+                                    .catch(err => {
+                                        console.log(err.response);
+                                    })
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err.response);
+                        })
+                }
             }
         });
     }
@@ -70,6 +94,12 @@ class CarProfileForm extends Component {
                 })
             }
         }
+    }
+
+    handleUploadImage = (e) => {
+        this.setState({
+            carImageUpload: e.target.files[0]
+        })
     }
 
     render() {
@@ -113,7 +143,9 @@ class CarProfileForm extends Component {
                         })(
                             <div style={{ display: 'flex' }}>
                                 <img src={carImage} width="200px" height="150px" className="mr-3" alt="car" />
-                                <Input type="file" />
+                                <input type="file" className="form-control"
+                                    onChange={this.handleUploadImage}
+                                    style={{ height: '40px' }} required />
                             </div>
                         )}
                     </Form.Item>

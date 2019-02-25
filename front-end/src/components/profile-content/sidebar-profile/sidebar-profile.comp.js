@@ -52,8 +52,6 @@ class SidebarProfile extends Component {
             .then(res => {
                 this.setState({
                     avatar: "http://localhost:5500/" + res.data.avatar
-                }, () => {
-                    console.log(this.state)
                 })
             })
             .catch(err => {

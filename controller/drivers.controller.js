@@ -27,9 +27,10 @@ module.exports.createDriverProfile = (req, res) => {
 
 module.exports.adjustDriverProfile = (req, res) => {
     const {address, passportId, job} = req.body;
-
+    console.log(req.body);
     Driver.findOne({userId: req.user.id})
         .then(driver => {
+            console.log(driver);
             if(!driver) {
                 return res.status(400).json({error: "Driver's profile is not existed"});
             }
@@ -61,13 +62,35 @@ module.exports.getDriverProfile = (req, res) => {
         .catch(err => res.status(400).json(err))
 }
 
+module.exports.addCarImage = (req, res) => {
+        Driver.findOne({userId: req.user.id})
+        .then(driver => {                
+            if(!driver) return res.status(400).json({error: "Can't find driver's profile"});
+
+            const carId = req.params.carId;
+            const carImage = req.file.path;
+            let carLocate;
+            let adjustedCar = driver.carInfo.find((car, index) => {
+                carLocate = index;
+                return (car._id == carId);
+            })
+            if(!adjustedCar) return res.status(400).json({error: "Cannot find car"});
+            adjustedCar.carImage = carImage;
+
+            driver.carInfo[carLocate] = adjustedCar;
+            return driver.save()
+        })
+        .then(driver =>  res.status(200).json(driver.carInfo[driver.carInfo.length - 1]))
+        .catch(err => res.status(400).json(err))
+    }
+
 // TODO: add driver's
 module.exports.addDriverCar = (req, res) => {
     Driver.findOne({userId: req.user.id})
         .then(driver => {
             if(!driver) return res.status(400).json({error: "Can't find this driver"});
             const {brand, model, manufacturingYear, licensePlate, numberOfSeats} = req.body;
-            const carImage = req.file.path;
+            const carImage = 'http://www.kensap.org/wp-content/uploads/empty-photo.jpg';
             const newCar = new Car({brand, 
                 model, 
                 manufacturingYear, 
@@ -78,7 +101,9 @@ module.exports.addDriverCar = (req, res) => {
             driver.carInfo.push(newCar);
             return driver.save()
         })
-        .then(driver => res.status(200).json(driver))
+        .then(driver => {
+            res.status(200).json(driver.carInfo[driver.carInfo.length - 1])
+        })
         .catch(err => res.status(400).json(err))
 }
 
@@ -91,7 +116,6 @@ module.exports.updateDriverCar = (req, res) => {
 
             const carId = req.params.carId;
             const {brand, model, manufacturingYear, licensePlate, numberOfSeats} = req.body;
-            const carImage = req.file.path;
             let carLocate;
             let adjustedCar = driver.carInfo.find((car, index) => {
                 carLocate = index;
@@ -104,12 +128,11 @@ module.exports.updateDriverCar = (req, res) => {
             adjustedCar.manufacturingYear = manufacturingYear;
             adjustedCar.licensePlate = licensePlate;
             adjustedCar.numberOfSeats = numberOfSeats;
-            adjustedCar.carImage = carImage;
 
             driver.carInfo[carLocate] = adjustedCar;
             return driver.save()
         })
-        .then(driver =>  res.status(400).json(driver.carInfo))
+        .then(driver =>  res.status(200).json(driver.carInfo))
         .catch(err => res.status(400).json(err))
 }
 
