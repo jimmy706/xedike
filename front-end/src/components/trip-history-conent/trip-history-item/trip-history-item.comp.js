@@ -94,7 +94,9 @@ class TripHistoryItem extends Component {
                                     className="avatar mr-1 rounded-circle" />
                             </Link>
                             :
-                            (<span>Loading...</span>)
+                            (<img src="./img/user-ic.png"
+                                alt="avatar"
+                                className="avatar mr-1 rounded-circle" />)
                         }
                         <div>
                             <span>Dang Quoc Dung</span>

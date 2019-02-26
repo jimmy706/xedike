@@ -17,7 +17,6 @@ class ProfileInfo extends Component {
   componentWillReceiveProps(nextProps) {
     axios.get("http://localhost:5500/api/user/" + nextProps.user.id)
       .then(user => {
-        console.log(user.data);
         this.setState({
           oldPassword: user.data.password
         })

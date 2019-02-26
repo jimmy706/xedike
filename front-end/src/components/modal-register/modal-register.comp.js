@@ -43,10 +43,6 @@ class ModalRegister extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-    }
-
     render() {
         const { errors } = this.props;
 
