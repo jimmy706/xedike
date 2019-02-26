@@ -65,6 +65,10 @@ export const actLogin = (userData) => {
                 setAuthToken(token);
                 // state user cần phải thay đổi
                 dispatch(setCurrentUser(decoded));
+                dispatch({
+                    type: Types.GET_ERRORS,
+                    payload: {}
+                })
             })
             .catch(err => {
                 dispatch({ // đăng nhập fail sẽ thực hiện GET_ERROR
