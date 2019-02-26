@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { changeSearchValue } from "../../../actions/search-action";
 
 class TripList extends Component {
-  renderTripList() {
+  renderTripList = () => {
     const { userList, tripList } = this.props;
-    return tripList.map((trip, index) => {
+    return tripList.map(function (trip, index) {
       const driver = userList.find(user => {
         return user._id === trip.driverId;
       })

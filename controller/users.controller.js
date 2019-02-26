@@ -145,30 +145,20 @@ module.exports.updateAccount = (req, res) => {
         .then( user => {
             if(!user) return res.status(400).json({error: "User doesn't exist"});
 
-            const {password, fullName, dateOfBirth} = req.body;
-            user.password = password;
+            const { fullName, dateOfBirth} = req.body;
             user.fullName = fullName;
             user.dateOfBirth = dateOfBirth;
 
-            // salt password to secret code and save
-            bcrypt.genSalt(10, (err, salt) => {
-                if(err) return res.status(400).json(err);
-                bcrypt.hash(user.password, salt, (err, hash) => {
-                    if(err) return res.status(400).json(err);
-                    user.password = hash;
-
-                    user.save()
-                        .then(user => {
-                            return res.status(200).json(user)
-                        })
-                        .catch(console.log)
-                })
-            })
+            return user.save()            
+        })
+        .then(user => {
+            return res.status(200).json(user)
         })
         .catch(err => {
             return res.status(400).json(err);
         })
 }
+
 
 // TODO: rate driver
 module.exports.rateDriver = (req, res) => {

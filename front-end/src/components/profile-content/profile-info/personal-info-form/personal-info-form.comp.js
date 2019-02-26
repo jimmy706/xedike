@@ -4,6 +4,9 @@ import {
     Form, Input, Button, DatePicker
 } from 'antd';
 import moment from "moment";
+import axios from "axios";
+import swal from 'sweetalert';
+
 
 class RegistrationForm extends Component {
     state = {
@@ -14,7 +17,20 @@ class RegistrationForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                const { fullName, dateOfBirth } = values;
+                const data = {
+                    fullName,
+                    dateOfBirth: dateOfBirth._d
+                }
+
+                axios.patch("http://localhost:5500/api/user/updateAccount", data)
+                    .then(res => {
+                        console.log(res.data);
+                        swal("Thành công!", "Thông tin của bạn đã được đổi!", "success");
+                    })
+                    .catch(err => {
+                        console.log(err.response);
+                    })
             }
         });
     }
@@ -98,7 +114,6 @@ class RegistrationForm extends Component {
                 >
                     {getFieldDecorator('dateOfBirth', {
                         rules: [{ required: true, message: 'Vui lòng nhập ngày tháng năm sinh!' },
-                        { type: 'date', message: "Sai định dạng!" }
                         ],
                         initialValue: dateOfBirth ? moment(new Date(dateOfBirth), 'DD/MM/YYYY') : ''
                     })(
