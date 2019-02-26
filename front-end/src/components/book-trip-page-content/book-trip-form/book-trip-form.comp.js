@@ -31,7 +31,7 @@ class BookTripForm extends Component {
                     .then(res => {
                         swal("Đăng ký thành công!", "Bạn đã có thể tham gia cuộc hành trình này", "success");
                         setTimeout(() => {
-                            window.location.href = "http://localhost:3001";
+                            window.location.href = "http://localhost:3000";
                         }, 500);
                     })
                     .catch(err => {
